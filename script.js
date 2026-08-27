@@ -8,6 +8,8 @@ const translations = {
     itineraryTitle: "Wedding Itinerary",
     teaTime: "4:30–5:30 PM",
     teaTitle: "Tea Ceremony",
+    mocktailTime: "6:00–7:00 PM",
+    mocktailTitle: "Mocktail Hour",
     receptionTime: "7:00–10:30 PM",
     receptionTitle: "Reception",
     venueTitle: "Date & Venue",
@@ -32,6 +34,8 @@ const translations = {
     itineraryTitle: "婚礼流程",
     teaTime: "下午 4:30–5:30",
     teaTitle: "敬茶仪式",
+    mocktailTime: "晚上 6:00–7:00",
+    mocktailTitle: "无酒精鸡尾酒时光",
     receptionTime: "晚上 7:00–10:30",
     receptionTitle: "婚宴开始",
     venueTitle: "日期与地点",
@@ -50,6 +54,12 @@ const translations = {
 };
 
 const languageButton = document.querySelector(".language-toggle");
+const rsvpLink = document.querySelector(".rsvp-button");
+const invitationToken = new URLSearchParams(window.location.search).get("invite");
+
+if (invitationToken) {
+  rsvpLink.href = `rsvp.html?invite=${encodeURIComponent(invitationToken)}`;
+}
 
 const renderTranslation = (element, text, language) => {
   const parts = language === "zh"

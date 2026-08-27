@@ -1,0 +1,227 @@
+:root {
+  --cream: #fff2e7;
+  --red: #b61b21;
+  --red-dark: #8f161c;
+  --gold: #d6a454;
+  --ink: #3e2626;
+  --serif: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea { font: inherit; }
+
+.hidden { display: none !important; }
+
+.language-toggle {
+  position: fixed;
+  z-index: 20;
+  top: 22px;
+  right: 28px;
+  border: 0;
+  padding: 7px 9px;
+  color: var(--ink);
+  background: rgba(255, 242, 231, .78);
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+.language-toggle span { opacity: 1; }
+.language-toggle .active { color: var(--red); }
+
+.rsvp-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 34px 20px 88px;
+}
+
+.back-link {
+  position: relative;
+  z-index: 4;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.page-motif {
+  position: absolute;
+  z-index: 0;
+  height: auto;
+  opacity: .28;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.motif-left { width: 240px; top: 190px; left: -78px; transform: rotate(-7deg); }
+.motif-right { width: 360px; right: -110px; bottom: 25px; }
+
+.rsvp-shell {
+  position: relative;
+  z-index: 2;
+  width: min(650px, 100%);
+  margin: 20px auto 0;
+  text-align: center;
+}
+
+.double-happiness {
+  color: var(--red);
+  font-family: "Noto Serif SC", serif;
+  font-size: 34px;
+  line-height: 1;
+}
+
+h1 {
+  margin: 12px 0 0;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(42px, 7vw, 62px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+
+.heading-knot {
+  display: block;
+  width: 190px;
+  height: 48px;
+  margin: -2px auto 12px;
+  object-fit: cover;
+  object-position: center;
+  opacity: .62;
+}
+
+.deadline { margin: 0 0 12px; font-size: 23px; font-weight: 600; }
+.intro { max-width: 470px; margin: 0 auto 28px; font-size: 20px; }
+
+#response-form { text-align: left; }
+
+label, legend { font-weight: 600; }
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(182, 27, 33, .42);
+  border-radius: 0;
+  padding: 9px 3px;
+  color: var(--ink);
+  background: transparent;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus { border-color: var(--red); }
+textarea { min-height: 72px; resize: vertical; }
+
+.form-status { min-height: 27px; margin: 10px 0 0; color: var(--red); text-align: center; }
+.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 17px; opacity: .72; }
+
+.eyebrow { margin: 10px 0 0; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
+.seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 20px; }
+
+fieldset { margin: 0 0 26px; padding: 0; border: 0; }
+.radio-row { display: flex; gap: 26px; margin-top: 8px; }
+.radio-row label { display: flex; align-items: center; gap: 7px; font-weight: 400; }
+.radio-row input { width: auto; accent-color: var(--red); }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 21px 24px; }
+.field label { display: block; margin-bottom: 2px; }
+.field-full { grid-column: 1 / -1; }
+.optional { font-weight: 400; opacity: .62; }
+
+.ornate-button {
+  display: block;
+  width: min(370px, 90%);
+  margin: 38px auto 0;
+  border: 0;
+  padding: 16px 28px;
+  color: #fff8f1;
+  background: #b61b21 url("assets/rsvp-border.svg") center / 100% 100% no-repeat;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 30px;
+  letter-spacing: .14em;
+}
+
+.ornate-button:hover { background-color: var(--red-dark); }
+.ornate-button:focus-visible, .language-toggle:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.text-button {
+  display: block;
+  margin: 18px auto 0;
+  border: 0;
+  color: var(--red);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.confirmation-message { margin: 0 0 30px; font-size: 22px; }
+
+.information-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  text-align: left;
+}
+
+.information-grid article { border-top: 1px solid rgba(214, 164, 84, .68); padding: 17px 18px; }
+.information-grid h2 { margin: 0 0 7px; font: 400 25px "Literata", Georgia, serif; }
+.information-grid p { margin: 0; }
+.information-wide { grid-column: 1 / -1; text-align: center; }
+.home-button { width: min(430px, 94%); }
+
+footer { width: min(600px, calc(100% - 60px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
+footer img { display: block; width: 100%; height: 48px; object-fit: cover; object-position: center; opacity: .62; }
+footer span { color: var(--red); font-family: "Noto Serif SC", serif; font-size: 26px; }
+
+html[lang="zh"] body { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; }
+html[lang="zh"] h1,
+html[lang="zh"] .information-grid h2 { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; letter-spacing: .02em; }
+html[lang="zh"] input,
+html[lang="zh"] select,
+html[lang="zh"] textarea { font-family: "Noto Serif SC", serif; }
+html[lang="zh"] #party-name { font-family: "Noto Serif SC", serif; }
+html[lang="zh"] label,
+html[lang="zh"] legend,
+html[lang="zh"] .deadline { font-weight: 400; }
+
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+  .rsvp-page { padding: 26px 18px 72px; }
+  .language-toggle { top: 12px; right: 10px; font-size: 19px; }
+  .back-link { display: inline-block; margin-top: 30px; }
+  .rsvp-shell { margin-top: 12px; }
+  h1 { font-size: 36px; }
+  .deadline { font-size: 20px; }
+  .intro { font-size: 19px; }
+  .radio-row { flex-direction: column; gap: 8px; }
+  .form-grid, .information-grid { grid-template-columns: 1fr; }
+  .field-full, .information-wide { grid-column: auto; }
+  .motif-left { width: 175px; left: -95px; top: 190px; opacity: .2; }
+  .motif-right { width: 250px; right: -130px; opacity: .2; }
+  .ornate-button { font-size: 25px; }
+  .information-grid h2 { font-size: 23px; }
+  html[lang="zh"] h1 { font-size: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
