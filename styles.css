@@ -747,6 +747,10 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .welcome { font-size: 18px; }
   .welcome > p { font-size: 19px; line-height: 1.55; }
   html[lang="zh"] .welcome > p { font-size: 24px; line-height: 1.65; }
+  html[lang="zh"] .rsvp-deadline {
+    font-size: 17px;
+    white-space: nowrap;
+  }
   .welcome { margin-top: 24px; padding: 62px 14px; }
   .welcome-knot-top, .welcome-knot-bottom { width: 125px; }
   .welcome-blossom { width: 100px; left: -28px; top: 68px; }

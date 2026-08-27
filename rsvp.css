@@ -32,16 +32,16 @@ button, input, select, textarea { font: inherit; }
   top: 22px;
   right: 28px;
   border: 0;
-  padding: 7px 9px;
+  padding: 8px;
   color: var(--ink);
-  background: rgba(255, 242, 231, .78);
+  background: transparent;
   cursor: pointer;
-  font-weight: 600;
+  font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
   letter-spacing: .06em;
 }
 
-.language-toggle span { opacity: 1; }
-.language-toggle .active { color: var(--red); }
+.language-toggle span { opacity: .48; }
+.language-toggle .active { color: var(--red); opacity: 1; }
 
 .rsvp-page {
   position: relative;
@@ -66,8 +66,10 @@ button, input, select, textarea { font: inherit; }
   pointer-events: none;
 }
 
-.motif-left { width: 240px; top: 190px; left: -78px; transform: rotate(-7deg); }
-.motif-right { width: 360px; right: -110px; bottom: 25px; }
+.motif-left { width: 250px; top: 175px; left: -70px; transform: rotate(-7deg); }
+.motif-right { width: 390px; right: -118px; top: 420px; }
+.motif-lower-left { width: 310px; left: -145px; bottom: 75px; transform: rotate(9deg); }
+.motif-petals { width: 72px; right: 7%; top: 270px; opacity: .22; }
 
 .rsvp-shell {
   position: relative;
@@ -132,8 +134,24 @@ textarea { min-height: 72px; resize: vertical; }
 .seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 20px; }
 
 fieldset { margin: 0 0 26px; padding: 0; border: 0; }
-.radio-row { display: flex; gap: 26px; margin-top: 8px; }
-.radio-row label { display: flex; align-items: center; gap: 7px; font-weight: 400; }
+.attendance-fieldset { text-align: center; }
+.radio-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 150px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 15px;
+}
+.radio-row label {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-bottom: 1px solid rgba(214, 164, 84, .72);
+  font-weight: 400;
+  cursor: pointer;
+}
 .radio-row input { width: auto; accent-color: var(--red); }
 
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 21px 24px; }
@@ -199,27 +217,64 @@ html[lang="zh"] input,
 html[lang="zh"] select,
 html[lang="zh"] textarea { font-family: "Noto Serif SC", serif; }
 html[lang="zh"] #party-name { font-family: "Noto Serif SC", serif; }
+html[lang="zh"] .back-link,
+html[lang="zh"] .language-toggle { font-family: "Noto Serif SC", serif; }
 html[lang="zh"] label,
 html[lang="zh"] legend,
 html[lang="zh"] .deadline { font-weight: 400; }
+html[lang="zh"] .seat-note { white-space: nowrap; }
+
+.thank-you-page {
+  display: grid;
+  min-height: calc(100vh - 130px);
+  place-items: center;
+  padding-top: 90px;
+}
+
+.thank-you-shell {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.thank-you-message {
+  max-width: 470px;
+  margin: 0 auto;
+  font-size: 22px;
+}
+
+.thank-you-shell .ornate-button { font-size: 22px; letter-spacing: .08em; }
 
 @media (max-width: 640px) {
   body { font-size: 18px; }
   .rsvp-page { padding: 26px 18px 72px; }
-  .language-toggle { top: 12px; right: 10px; font-size: 19px; }
+  .language-toggle {
+    top: 12px;
+    right: 10px;
+    padding: 7px 9px;
+    background: rgba(255, 242, 231, .68);
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .language-toggle span { opacity: 1; }
   .back-link { display: inline-block; margin-top: 30px; }
   .rsvp-shell { margin-top: 12px; }
   h1 { font-size: 36px; }
   .deadline { font-size: 20px; }
   .intro { font-size: 19px; }
-  .radio-row { flex-direction: column; gap: 8px; }
+  .radio-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .form-grid, .information-grid { grid-template-columns: 1fr; }
   .field-full, .information-wide { grid-column: auto; }
   .motif-left { width: 175px; left: -95px; top: 190px; opacity: .2; }
-  .motif-right { width: 250px; right: -130px; opacity: .2; }
+  .motif-right { width: 250px; right: -130px; top: 390px; opacity: .2; }
+  .motif-lower-left { width: 210px; left: -125px; bottom: 95px; opacity: .16; }
+  .motif-petals { right: 2px; top: 310px; opacity: .16; }
   .ornate-button { font-size: 25px; }
   .information-grid h2 { font-size: 23px; }
   html[lang="zh"] h1 { font-size: 38px; }
+  html[lang="zh"] .deadline { font-size: 17px; white-space: nowrap; }
+  html[lang="zh"] .seat-note { font-size: 18px; }
+  .thank-you-page { padding-top: 76px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

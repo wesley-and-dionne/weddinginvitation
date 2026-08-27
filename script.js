@@ -49,17 +49,23 @@ const translations = {
     teaInfoTitle: "敬茶仪式",
     teaInfoCopy:
       "敬茶仪式期间，诚邀新郎与新娘的受邀亲属接受新人奉茶，并为新人送上祝福。",
-    rsvpDeadline: "敬请于 2027年2月1日前确认出席",
+    rsvpDeadline: "敬请于2027年2月1日前回复",
   },
 };
 
 const languageButton = document.querySelector(".language-toggle");
 const rsvpLink = document.querySelector(".rsvp-button");
-const invitationToken = new URLSearchParams(window.location.search).get("invite");
+const pageParams = new URLSearchParams(window.location.search);
+const invitationToken = pageParams.get("invite");
+let currentLanguage = pageParams.get("lang") === "zh" ? "zh" : "en";
 
-if (invitationToken) {
-  rsvpLink.href = `rsvp.html?invite=${encodeURIComponent(invitationToken)}`;
-}
+const updateRsvpLink = () => {
+  const rsvpParams = new URLSearchParams();
+  if (invitationToken) rsvpParams.set("invite", invitationToken);
+  if (currentLanguage === "zh") rsvpParams.set("lang", "zh");
+  const query = rsvpParams.toString();
+  rsvpLink.href = query ? `rsvp.html?${query}` : "rsvp.html";
+};
 
 const renderTranslation = (element, text, language) => {
   const parts = language === "zh"
@@ -87,26 +93,27 @@ const renderTranslation = (element, text, language) => {
   element.replaceChildren(content);
 };
 
-document.querySelectorAll("[data-i18n]").forEach((element) => {
-  renderTranslation(element, translations.en[element.dataset.i18n], "en");
-});
-
-languageButton.addEventListener("click", () => {
-  const nextLanguage = document.documentElement.lang === "en" ? "zh" : "en";
-  document.documentElement.lang = nextLanguage;
-
+const applyLanguage = () => {
+  document.documentElement.lang = currentLanguage;
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     renderTranslation(
       element,
-      translations[nextLanguage][element.dataset.i18n],
-      nextLanguage,
+      translations[currentLanguage][element.dataset.i18n],
+      currentLanguage,
     );
   });
-
   languageButton.querySelectorAll("[data-language]").forEach((label) => {
-    label.classList.toggle("active", label.dataset.language === nextLanguage);
+    label.classList.toggle("active", label.dataset.language === currentLanguage);
   });
+  updateRsvpLink();
+};
+
+languageButton.addEventListener("click", () => {
+  currentLanguage = currentLanguage === "en" ? "zh" : "en";
+  applyLanguage();
 });
+
+applyLanguage();
 
 const welcomeSection = document.querySelector(".welcome");
 const mobileLanguageQuery = window.matchMedia("(max-width: 640px)");

@@ -24,6 +24,8 @@
     <main class="rsvp-page">
       <img class="page-motif motif-left" src="assets/motif-blossom.png" alt="" />
       <img class="page-motif motif-right" src="assets/itinerary-peony.png" alt="" />
+      <img class="page-motif motif-lower-left" src="assets/motif-upper-peony.png" alt="" />
+      <img class="page-motif motif-petals" src="assets/motif-petals.png" alt="" />
 
       <a class="back-link" href="index.html" data-i18n="back">← Wedding website</a>
 
@@ -53,17 +55,17 @@
             <legend data-i18n="attendanceQuestion">Will you be joining us?</legend>
             <div class="radio-row">
               <label>
-                <input type="radio" name="attendance" value="yes" checked />
-                <span data-i18n="accepts">Joyfully accepts</span>
+                <input type="radio" name="attendance" value="yes" required />
+                <span data-i18n="accepts">Yes</span>
               </label>
               <label>
                 <input type="radio" name="attendance" value="no" />
-                <span data-i18n="declines">Regretfully declines</span>
+                <span data-i18n="declines">No</span>
               </label>
             </div>
           </fieldset>
 
-          <div id="attendance-details">
+          <div class="hidden" id="attendance-details">
             <div class="form-grid">
               <div class="field">
                 <label for="attendee-count" data-i18n="numberAttending">Number attending</label>
@@ -89,11 +91,6 @@
               </div>
 
               <div class="field">
-                <label for="contact" data-i18n="contact">Email or mobile number</label>
-                <input id="contact" required />
-              </div>
-
-              <div class="field">
                 <label for="dietary">
                   <span data-i18n="dietary">Dietary requirements</span>
                   <span class="optional" data-i18n="optional">(optional)</span>
@@ -103,7 +100,7 @@
 
               <div class="field field-full">
                 <label for="notes">
-                  <span data-i18n="notes">Accessibility needs or note</span>
+                  <span data-i18n="notes">Notes</span>
                   <span class="optional" data-i18n="optional">(optional)</span>
                 </label>
                 <textarea id="notes"></textarea>
@@ -116,43 +113,6 @@
         </form>
       </section>
 
-      <section class="rsvp-shell confirmation hidden" id="confirmation-view" aria-labelledby="confirmation-heading">
-        <div class="double-happiness" aria-hidden="true">囍</div>
-        <h1 id="confirmation-heading" data-i18n="received">RSVP Received</h1>
-        <img class="heading-knot" src="assets/motif-knot.png" alt="" />
-        <p class="confirmation-message" id="confirmation-message"></p>
-
-        <div class="information-grid">
-          <article>
-            <h2 data-i18n="dateVenue">Date &amp; Venue</h2>
-            <p><strong>1 May 2027</strong><br />EQ Kuala Lumpur<br />Diamond Ballroom · Level 1</p>
-          </article>
-          <article>
-            <h2 data-i18n="itinerary">Wedding Itinerary</h2>
-            <p>
-              4:30–5:30 PM · <span data-i18n="teaCeremony">Tea Ceremony</span><br />
-              6:00–7:00 PM · <span data-i18n="mocktailHour">Mocktail Hour</span><br />
-              7:00–10:30 PM · <span data-i18n="reception">Reception</span>
-            </p>
-          </article>
-          <article>
-            <h2 data-i18n="attire">Attire</h2>
-            <p data-i18n="attireCopy">Formal or Oriental</p>
-          </article>
-          <article id="tea-confirmation-card">
-            <h2 data-i18n="teaCeremony">Tea Ceremony</h2>
-            <p data-i18n="teaReminder">Please arrive by 4:15 PM.</p>
-          </article>
-          <article class="information-wide">
-            <h2 data-i18n="next">What happens next</h2>
-            <p data-i18n="nextCopy">
-              You may return using your personalised invitation link if you need to update your response.
-            </p>
-          </article>
-        </div>
-
-        <a class="ornate-button home-button" href="index.html" data-i18n="returnWebsite">Return to wedding website</a>
-      </section>
     </main>
 
     <footer aria-hidden="true">
