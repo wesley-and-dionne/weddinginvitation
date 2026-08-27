@@ -722,7 +722,7 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   html[lang="zh"] .tea-info .section-heading h2 {
     font-size: clamp(34px, 9.5vw, 40px);
   }
-  .language-toggle { top: 14px; right: 12px; padding: 5px 7px; background: transparent; }
+  .language-toggle { top: 14px; right: 12px; padding: 5px 7px; background: transparent; font-weight: 600; }
   .section-shell { width: min(100% - 26px, 980px); }
   .hero { min-height: 0; padding: 0; }
   .corner { width: 76px; height: 90px; }
@@ -730,6 +730,7 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .peony { width: 180px; opacity: .28; }
   .wedding-date { font-size: 20px; letter-spacing: .19em; }
   .welcome { font-size: 18px; }
+  html[lang="zh"] .welcome > p { font-size: 22px; line-height: 1.65; }
   .welcome { margin-top: 24px; padding: 62px 14px; }
   .welcome-knot-top, .welcome-knot-bottom { width: 125px; }
   .welcome-blossom { width: 100px; left: -28px; top: 68px; }
