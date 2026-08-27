@@ -98,6 +98,19 @@ languageButton.addEventListener("click", () => {
   });
 });
 
+const welcomeSection = document.querySelector(".welcome");
+const mobileLanguageQuery = window.matchMedia("(max-width: 640px)");
+
+const updateMobileLanguageButton = () => {
+  const shouldShow = mobileLanguageQuery.matches
+    && welcomeSection.getBoundingClientRect().top <= 76;
+  languageButton.classList.toggle("mobile-sticky-visible", shouldShow);
+};
+
+window.addEventListener("scroll", updateMobileLanguageButton, { passive: true });
+window.addEventListener("resize", updateMobileLanguageButton);
+updateMobileLanguageButton();
+
 const slides = Array.from(document.querySelectorAll(".carousel-slide"));
 let currentSlide = 0;
 
