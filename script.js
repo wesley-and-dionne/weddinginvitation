@@ -1,0 +1,114 @@
+const translations = {
+  en: {
+    heroKicker: "The Wedding of",
+    date: "1 MAY 2027",
+    welcomeTitle: "Welcome",
+    welcomeCopy:
+      "We are delighted to invite you to celebrate the beginning of our new life together. Your love and presence mean the world to us as we embark on this beautiful journey.",
+    itineraryTitle: "Wedding Itinerary",
+    teaTime: "4:30–5:30 PM",
+    teaTitle: "Tea Ceremony",
+    receptionTime: "7:00–10:30 PM",
+    receptionTitle: "Reception",
+    venueTitle: "Date & Venue",
+    venueDate: "01/05/2027",
+    venueName: "EQ Kuala Lumpur",
+    venueRoom: "Diamond Ballroom · Level 1",
+    attireTitle: "Attire",
+    blackTie: "Formal",
+    or: "or",
+    oriental: "Oriental",
+    teaInfoTitle: "Tea Ceremony Information",
+    teaInfoCopy:
+      "During the tea ceremony, invited relatives of the bride and groom will be welcomed to accept tea and offer blessings to the couple.",
+    rsvpDeadline: "Kindly RSVP by 1 February 2027",
+  },
+  zh: {
+    heroKicker: "我们的婚礼",
+    date: "2027年5月1日",
+    welcomeTitle: "诚挚邀请",
+    welcomeCopy:
+      "我们诚挚邀请您共同见证人生新篇章。感谢您的爱与陪伴，与我们一同分享这份喜悦，开启美好的婚姻旅程。",
+    itineraryTitle: "婚礼流程",
+    teaTime: "下午 4:30–5:30",
+    teaTitle: "敬茶仪式",
+    receptionTime: "晚上 7:00–10:30",
+    receptionTitle: "婚宴开始",
+    venueTitle: "日期与地点",
+    venueDate: "01/05/2027",
+    venueName: "吉隆坡 EQ 酒店",
+    venueRoom: "一楼 Diamond Ballroom",
+    attireTitle: "着装建议",
+    blackTie: "正式礼服",
+    or: "或",
+    oriental: "中式",
+    teaInfoTitle: "敬茶仪式",
+    teaInfoCopy:
+      "敬茶仪式期间，诚邀新郎与新娘的受邀亲属接受新人奉茶，并为新人送上祝福。",
+    rsvpDeadline: "敬请于 2027年2月1日前确认出席",
+  },
+};
+
+const languageButton = document.querySelector(".language-toggle");
+
+const renderTranslation = (element, text, language) => {
+  const parts = language === "zh"
+    ? text.split(/([A-Za-z]+(?:\s+[A-Za-z]+)*|[0-9][0-9:.,/+\-–—]*)/g)
+    : text.split(/([0-9][0-9:.,/+\-–—]*)/g);
+  const content = document.createDocumentFragment();
+
+  parts.filter(Boolean).forEach((part) => {
+    const useNotoSerif = language === "zh"
+      ? /[A-Za-z0-9]/.test(part)
+      : /[0-9]/.test(part);
+
+    if (useNotoSerif) {
+      const latinText = document.createElement("span");
+      latinText.className = /^[0-9]/.test(part)
+        ? "latin-text number-text"
+        : "latin-text";
+      latinText.textContent = part;
+      content.append(latinText);
+    } else {
+      content.append(document.createTextNode(part));
+    }
+  });
+
+  element.replaceChildren(content);
+};
+
+document.querySelectorAll("[data-i18n]").forEach((element) => {
+  renderTranslation(element, translations.en[element.dataset.i18n], "en");
+});
+
+languageButton.addEventListener("click", () => {
+  const nextLanguage = document.documentElement.lang === "en" ? "zh" : "en";
+  document.documentElement.lang = nextLanguage;
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    renderTranslation(
+      element,
+      translations[nextLanguage][element.dataset.i18n],
+      nextLanguage,
+    );
+  });
+
+  languageButton.querySelectorAll("[data-language]").forEach((label) => {
+    label.classList.toggle("active", label.dataset.language === nextLanguage);
+  });
+});
+
+const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+let currentSlide = 0;
+
+if (slides.length > 1) {
+  window.setInterval(() => {
+    slides[currentSlide].classList.remove("active");
+    slides[currentSlide].setAttribute("aria-hidden", "true");
+
+    currentSlide = (currentSlide + 1) % slides.length;
+
+    slides[currentSlide].classList.add("active");
+    slides[currentSlide].setAttribute("aria-hidden", "false");
+  }, 5000);
+}
