@@ -178,7 +178,6 @@ const updateGuestFields = () => {
 
 const loadInvitation = (rawInvitation) => {
   currentInvitation = normalizeInvitation(rawInvitation);
-  if (!explicitLanguage && currentInvitation.preferredLanguage === "zh") currentLanguage = "zh";
 
   attendeeCount.replaceChildren();
   for (let count = 1; count <= currentInvitation.seats; count += 1) {
