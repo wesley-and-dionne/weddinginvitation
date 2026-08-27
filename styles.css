@@ -720,7 +720,8 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   html[lang="zh"] .itinerary .section-heading h2,
   html[lang="zh"] .attire .section-heading h2,
   html[lang="zh"] .tea-info .section-heading h2 {
-    font-size: clamp(34px, 9.5vw, 40px);
+    font-size: clamp(30px, 8.5vw, 34px);
+    line-height: 1.12;
   }
   .language-toggle { top: 14px; right: 12px; padding: 5px 7px; background: transparent; font-weight: 600; }
   .section-shell { width: min(100% - 26px, 980px); }
@@ -730,7 +731,8 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .peony { width: 180px; opacity: .28; }
   .wedding-date { font-size: 20px; letter-spacing: .19em; }
   .welcome { font-size: 18px; }
-  html[lang="zh"] .welcome > p { font-size: 22px; line-height: 1.65; }
+  .welcome > p { font-size: 19px; line-height: 1.55; }
+  html[lang="zh"] .welcome > p { font-size: 24px; line-height: 1.65; }
   .welcome { margin-top: 24px; padding: 62px 14px; }
   .welcome-knot-top, .welcome-knot-bottom { width: 125px; }
   .welcome-blossom { width: 100px; left: -28px; top: 68px; }
@@ -748,8 +750,8 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .itinerary-peony { right: -38%; top: 225px; width: 275px; opacity: .46; }
   .itinerary { padding-top: 55px; padding-bottom: 42px; }
   .timeline li { gap: 20px; }
-  .timeline time { font-size: 23px; }
-  .timeline p { font-size: 21px; }
+  .timeline time { font-size: 22px; }
+  .timeline p { font-size: 20px; }
   .venue { padding-top: 58px; padding-bottom: 30px; }
   .venue-floral { left: -150px; top: 18px; width: 270px; opacity: .20; }
   .itinerary { padding-top: 28px; }
@@ -758,9 +760,17 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .attire-illustration { width: 88px; height: 130px; }
   .attire-dress { width: 78px; transform: translateX(-8px); }
   .attire-copy { min-width: 135px; }
+  .venue p.venue-date { font-size: 21px; }
+  .venue-name { font-size: 23px; }
+  .venue-room { font-size: 19px; }
   .attire-layout p { font-size: 19px; }
   .tea-info { min-height: 390px; padding: 64px 14px 76px; }
   .tea-info > p { font-size: 19px; }
+  html[lang="zh"] .attire-layout p,
+  html[lang="zh"] .tea-info > p { font-size: 22px; line-height: 1.6; }
+  html[lang="zh"] .venue p { font-size: 22px; }
+  html[lang="zh"] .venue p.venue-date { font-size: 25px; }
+  .footer-double-happiness { position: relative; left: -3px; }
   .tea-blossom { left: -72px; top: 150px; width: 155px; opacity: .28; }
   .tea-peony { right: -105px; top: 116px; width: 230px; opacity: .36; }
   .rsvp-section { padding-top: 115px; padding-bottom: 150px; }
