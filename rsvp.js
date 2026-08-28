@@ -130,6 +130,30 @@ const partyName = () => currentLanguage === "zh"
   ? currentInvitation.partyNameChinese
   : currentInvitation.partyNameEnglish;
 
+const renderTranslation = (element, value) => {
+  const parts = currentLanguage === "zh"
+    ? value.split(/([A-Za-z]+(?:\s+[A-Za-z]+)*|[0-9][0-9:.,/+\-–—]*)/g)
+    : value.split(/([0-9][0-9:.,/+\-–—]*)/g);
+  const content = document.createDocumentFragment();
+
+  parts.filter(Boolean).forEach((part) => {
+    const useNotoSerif = currentLanguage === "zh"
+      ? /[A-Za-z0-9]/.test(part)
+      : /[0-9]/.test(part);
+
+    if (useNotoSerif) {
+      const span = document.createElement("span");
+      span.className = /^[0-9]/.test(part) ? "noto-text number-text" : "noto-text";
+      span.textContent = part;
+      content.append(span);
+    } else {
+      content.append(document.createTextNode(part));
+    }
+  });
+
+  element.replaceChildren(content);
+};
+
 const updateReturnLinks = () => {
   document.querySelectorAll('a[href^="index.html"]').forEach((link) => {
     const params = new URLSearchParams();
@@ -140,16 +164,19 @@ const updateReturnLinks = () => {
 };
 
 const renderInvitationText = () => {
-  document.querySelector("#party-name").textContent = partyName();
-  document.querySelector("#seat-note").textContent = currentInvitation.seats === 1
-    ? text("seatOne")
-    : text("seatMany", { count: currentInvitation.seats });
+  renderTranslation(document.querySelector("#party-name"), partyName());
+  renderTranslation(
+    document.querySelector("#seat-note"),
+    currentInvitation.seats === 1
+      ? text("seatOne")
+      : text("seatMany", { count: currentInvitation.seats }),
+  );
 };
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLanguage;
   document.querySelectorAll("[data-i18n]").forEach((element) => {
-    element.textContent = text(element.dataset.i18n);
+    renderTranslation(element, text(element.dataset.i18n));
   });
   languageButton.querySelectorAll("[data-language]").forEach((label) => {
     label.classList.toggle("active", label.dataset.language === currentLanguage);

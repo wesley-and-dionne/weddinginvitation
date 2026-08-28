@@ -50,18 +50,19 @@ const attendingInformation = document.querySelector("#attending-information");
 attendingInformation.classList.toggle("hidden", response !== "yes");
 
 const renderTranslation = (element, value) => {
-  if (currentLanguage !== "zh") {
-    element.textContent = value;
-    return;
-  }
-
-  const parts = value.split(/([A-Za-z]+(?:\s+[A-Za-z]+)*|[0-9][0-9:.,/+\-–—]*)/g);
+  const parts = currentLanguage === "zh"
+    ? value.split(/([A-Za-z]+(?:\s+[A-Za-z]+)*|[0-9][0-9:.,/+\-–—]*)/g)
+    : value.split(/([0-9][0-9:.,/+\-–—]*)/g);
   const content = document.createDocumentFragment();
 
   parts.filter(Boolean).forEach((part) => {
-    if (/[A-Za-z0-9]/.test(part)) {
+    const useNotoSerif = currentLanguage === "zh"
+      ? /[A-Za-z0-9]/.test(part)
+      : /[0-9]/.test(part);
+
+    if (useNotoSerif) {
       const span = document.createElement("span");
-      span.className = "noto-text";
+      span.className = /^[0-9]/.test(part) ? "noto-text number-text" : "noto-text";
       span.textContent = part;
       content.append(span);
     } else {

@@ -21,7 +21,7 @@ body {
   color: var(--ink);
   background: var(--cream);
   font-family: var(--serif);
-  font-size: 1.125rem;
+  font-size: 1.3125rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -110,8 +110,8 @@ h1 {
   opacity: .62;
 }
 
-.deadline { margin: 0 auto 12px; font-size: 1.4375rem; font-weight: 600; text-wrap: balance; }
-.intro { max-width: 470px; margin: 0 auto 28px; font-size: 1.25rem; text-wrap: balance; }
+.deadline { margin: 0 auto 12px; font-size: 1.6875rem; font-weight: 600; text-wrap: balance; }
+.intro { max-width: 470px; margin: 0 auto 28px; font-size: 1.4375rem; text-wrap: balance; }
 .intro.is-loading::after {
   content: "";
   display: inline-block;
@@ -147,10 +147,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--red); }
 textarea { min-height: 72px; resize: vertical; }
 
 .form-status { min-height: 27px; margin: 10px 0 0; color: var(--red); text-align: center; }
-.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 1.0625rem; opacity: .72; text-wrap: balance; }
+.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 1.25rem; opacity: .72; text-wrap: balance; }
 
 .eyebrow { margin: 10px 0 0; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
-.seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 1.25rem; text-wrap: balance; }
+.seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 1.4375rem; text-wrap: balance; }
 
 fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .attendance-fieldset { text-align: center; }
@@ -190,7 +190,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   text-align: center;
   text-decoration: none;
   font-family: var(--serif);
-  font-size: 1.875rem;
+  font-size: 2.1875rem;
   letter-spacing: .14em;
 }
 
@@ -210,7 +210,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   text-decoration: underline;
 }
 
-.confirmation-message { margin: 0 0 30px; font-size: 1.375rem; }
+.confirmation-message { margin: 0 0 30px; font-size: 1.625rem; }
 
 .information-grid {
   display: grid;
@@ -229,7 +229,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   border: 3px double var(--gold);
   padding: .9em 1.15em;
   background-image: none;
-  font-size: clamp(1.125rem, 4vw, 1.375rem);
+  font-size: clamp(1.3125rem, 4vw, 1.625rem);
   line-height: 1.2;
   letter-spacing: .035em;
   overflow-wrap: anywhere;
@@ -268,10 +268,10 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 .thank-you-message {
   max-width: 470px;
   margin: 0 auto;
-  font-size: 1.375rem;
+  font-size: 1.625rem;
 }
 
-.thank-you-shell .ornate-button { font-size: 1.375rem; letter-spacing: .08em; }
+.thank-you-shell .ornate-button { font-size: 1.625rem; letter-spacing: .08em; }
 
 .guest-information {
   position: relative;
@@ -304,7 +304,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 .guest-information-grid h3 {
   margin: 0;
   color: var(--red);
-  font: 500 1.4rem "Literata", Georgia, serif;
+  font: 500 1.625rem "Literata", Georgia, serif;
 }
 .information-heading-row {
   display: flex;
@@ -331,7 +331,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   margin: 0 auto;
   padding-left: 1.2em;
   color: rgba(62, 38, 38, .82);
-  font-size: 1.0625rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.65;
   text-align: left;
@@ -353,7 +353,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   margin-top: 2px;
   color: var(--red);
   font-family: "Noto Serif SC", serif;
-  font-size: 1.25rem;
+  font-size: 1.4375rem;
   font-weight: 500;
   text-underline-offset: .2em;
 }
@@ -367,7 +367,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   color: var(--cream);
   background: var(--red);
   font-family: "Noto Serif SC", Georgia, serif;
-  font-size: 1.125rem;
+  font-size: 1.3125rem;
   line-height: 1.2;
   letter-spacing: .06em;
   text-decoration: none;
@@ -395,24 +395,29 @@ html[lang="zh"] .express-interest-button,
 html[lang="zh"] .whatsapp-username a {
   font-family: "Noto Serif SC", serif;
 }
+html[lang="en"] .noto-text,
+html[lang="en"] select {
+  font-family: "Noto Serif SC", serif;
+}
+.number-text { font-size: .9em; }
 
 @media (max-width: 640px) {
-  body { font-size: 1.125rem; }
+  body { font-size: 1.3125rem; }
   .rsvp-page { padding: 26px 18px 72px; }
   .language-toggle {
     top: 12px;
     right: 10px;
     padding: 7px 9px;
     background: rgba(255, 242, 231, .68);
-    font-size: 1.25rem;
+    font-size: 1.4375rem;
     font-weight: 600;
   }
   .language-toggle span { opacity: 1; }
   .back-link { display: inline-block; margin-top: 30px; }
   .rsvp-shell { margin-top: 12px; }
   h1 { font-size: 2.25rem; }
-  .deadline { font-size: 1.25rem; }
-  .intro { font-size: 1.1875rem; }
+  .deadline { font-size: 1.4375rem; }
+  .intro { font-size: 1.375rem; }
   .radio-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .form-grid, .information-grid { grid-template-columns: 1fr; }
   .field-full, .information-wide { grid-column: auto; }
@@ -420,12 +425,12 @@ html[lang="zh"] .whatsapp-username a {
   .motif-right { width: 250px; right: -130px; top: 390px; opacity: .2; }
   .motif-lower-left { width: 210px; left: -125px; bottom: 95px; opacity: .16; }
   .motif-petals { right: 2px; top: 310px; opacity: .16; }
-  .ornate-button { font-size: 1.5625rem; }
-  .home-button { font-size: clamp(1.0625rem, 5vw, 1.25rem); letter-spacing: .02em; }
-  .information-grid h2 { font-size: 1.4375rem; }
+  .ornate-button { font-size: 1.8125rem; }
+  .home-button { font-size: clamp(1.25rem, 5vw, 1.4375rem); letter-spacing: .02em; }
+  .information-grid h2 { font-size: 1.6875rem; }
   html[lang="zh"] h1 { font-size: 2.375rem; }
-  html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.0625rem; text-wrap: balance; }
-  html[lang="zh"] .seat-note { max-width: 20rem; font-size: 1.125rem; text-wrap: balance; }
+  html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.25rem; text-wrap: balance; }
+  html[lang="zh"] .seat-note { max-width: 20rem; font-size: 1.3125rem; text-wrap: balance; }
   .thank-you-page { padding-top: 76px; }
   .guest-information { margin-top: 58px; }
   .guest-information-grid article { padding-inline: 4px; }

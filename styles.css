@@ -505,10 +505,18 @@ h1 span { color: var(--red); font-weight: 400; }
   border: 1px solid rgba(201, 151, 62, .58);
   filter: saturate(.72) sepia(.08);
 }
+.venue-map-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+  margin-top: 14px;
+}
 .venue-map a {
   display: inline-block;
-  margin-top: 11px;
   color: var(--ink);
+  font-size: clamp(1.4375rem, 2.7vw, 1.8125rem);
+  line-height: 1.25;
   text-decoration-color: rgba(201, 151, 62, .8);
   text-underline-offset: .22em;
 }
@@ -784,6 +792,7 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .photo-peony { width: 175px; right: -68px; bottom: 8px; }
   .venue-map { width: min(100%, 34rem); margin-top: 26px; }
   .venue-map iframe { aspect-ratio: 4 / 3; }
+  .venue-map a { font-size: 1.3125rem; }
   .photo-cloud-right { width: 185px; right: -90px; }
   .photo-moment .carousel { transform: translateY(30px); }
   .photo-moment { min-height: 400px; padding-block: 35px 70px; }
