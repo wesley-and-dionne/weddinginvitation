@@ -236,8 +236,8 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   text-wrap: balance;
 }
 
-footer { width: min(600px, calc(100% - 60px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
-.footer-divider { display: block; width: min(560px, 100%); margin: 0 auto 20px; }
+footer { width: min(900px, calc(100% - 40px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
+.footer-divider { display: block; width: min(860px, 100%); margin: 0 auto 20px; }
 .footer-knot { display: block; width: 100%; height: 48px; margin: 0 auto; object-fit: cover; object-position: center; opacity: .68; }
 footer span { color: var(--red); font-family: "Noto Serif SC", serif; font-size: 1.625rem; }
 
