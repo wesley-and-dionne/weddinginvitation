@@ -1,0 +1,193 @@
+.hotel-interest-page {
+  padding-bottom: 74px;
+}
+
+.hotel-interest-shell {
+  width: min(720px, 100%);
+}
+
+.hotel-interest-shell h1 {
+  font-size: clamp(2.5rem, 6.5vw, 3.75rem);
+}
+
+.rate-card {
+  width: min(580px, 100%);
+  margin: 8px auto 26px;
+  padding: 23px 26px 25px;
+  border-top: 1px solid rgba(214, 164, 84, .78);
+  border-bottom: 1px solid rgba(214, 164, 84, .78);
+}
+
+.rate-card p {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.rate-eyebrow {
+  color: var(--red);
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.3125rem;
+}
+
+.room-rate {
+  margin-top: 3px !important;
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.rate-note {
+  max-width: 470px;
+  margin: 9px auto 0 !important;
+  font-size: 1.1875rem;
+  line-height: 1.35;
+  opacity: .76;
+}
+
+.hotel-intro,
+.privacy-note {
+  max-width: 570px;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.hotel-intro {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.4375rem;
+}
+
+.privacy-note {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.125rem;
+  opacity: .72;
+}
+
+.hotel-form {
+  text-align: left;
+}
+
+.hotel-form-grid {
+  gap: 24px 28px;
+}
+
+.hotel-form input,
+.hotel-form select,
+.hotel-form textarea {
+  min-height: 48px;
+}
+
+.hotel-form input[type="date"] {
+  appearance: none;
+  min-height: 50px;
+}
+
+.field-note {
+  margin: 5px 0 0;
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: .62;
+}
+
+.hotel-submit-button {
+  width: min(390px, 94%);
+  font-size: clamp(1.45rem, 4vw, 1.875rem);
+  letter-spacing: .08em;
+}
+
+.hotel-confirmation {
+  width: min(570px, 100%);
+  margin: 38px auto 0;
+  text-align: center;
+}
+
+.hotel-confirmation h2 {
+  margin: 0 0 8px;
+  color: var(--red);
+  font: 400 2.25rem "Literata", Georgia, serif;
+}
+
+.hotel-confirmation p {
+  margin: 0 auto;
+  font-size: 1.4375rem;
+  text-wrap: balance;
+}
+
+.hotel-motif-left {
+  top: 290px;
+}
+
+.hotel-motif-right {
+  top: 620px;
+}
+
+.hotel-motif-lower {
+  bottom: 160px;
+}
+
+html[lang="zh"] .rate-eyebrow,
+html[lang="zh"] .hotel-confirmation h2 {
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+  font-weight: 400;
+}
+
+html[lang="zh"] .room-rate {
+  font-family: "Noto Serif SC", serif;
+}
+
+@media (max-width: 640px) {
+  .hotel-interest-page {
+    padding-top: 26px;
+  }
+
+  .hotel-interest-shell h1 {
+    font-size: 2.2rem;
+  }
+
+  .rate-card {
+    margin-top: 4px;
+    padding: 20px 10px 21px;
+  }
+
+  .rate-eyebrow {
+    font-size: 1.25rem;
+  }
+
+  .room-rate {
+    font-size: 1.5rem;
+  }
+
+  .rate-note {
+    font-size: 1.125rem;
+  }
+
+  .hotel-intro {
+    font-size: 1.3125rem;
+  }
+
+  .privacy-note {
+    font-size: 1.0625rem;
+  }
+
+  .hotel-form-grid {
+    gap: 23px;
+  }
+
+  .hotel-submit-button {
+    font-size: clamp(1.25rem, 6vw, 1.6rem);
+  }
+
+  .hotel-confirmation h2 {
+    font-size: 2rem;
+  }
+
+  .hotel-motif-left {
+    top: 340px;
+  }
+
+  .hotel-motif-right {
+    top: 760px;
+  }
+}

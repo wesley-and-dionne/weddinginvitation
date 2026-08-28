@@ -1,6 +1,7 @@
 var RSVP_CONFIG = {
   SHEET_NAMES: ["Bride Guests", "Groom Guests"],
   CONFIRMED_SHEET_NAME: "Confirmed Guests",
+  HOTEL_SHEET_NAME: "Hotel Interest",
   WEBSITE_URL: "https://wesley-and-dionne.github.io/weddinginvitation/",
   PROPERTY_NAME: "WEDDING_RSVP_SPREADSHEET_ID",
   MAX_SEATS: 5,
@@ -37,13 +38,31 @@ var RSVP_CONFIG = {
     "dietary",
     "notes",
     "submittedAt"
+  ],
+  HOTEL_HEADERS: [
+    "token",
+    "guestSide",
+    "partyNameEnglish",
+    "partyNameChinese",
+    "contactName",
+    "checkInDate",
+    "checkOutDate",
+    "phone",
+    "email",
+    "numberOfPax",
+    "numberOfRooms",
+    "bedPreference",
+    "specialRequests",
+    "responseLanguage",
+    "submittedAt",
+    "lastUpdated"
   ]
 };
 
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu("Wedding RSVP")
-    .addItem("Set up bride and groom sheets", "setupWeddingRsvp")
+    .addItem("Set up wedding sheets", "setupWeddingRsvp")
     .addItem("Generate missing links", "generateMissingTokensAndLinks")
     .addToUi();
 }
@@ -66,9 +85,13 @@ function setupWeddingRsvp() {
     || spreadsheet.insertSheet(RSVP_CONFIG.CONFIRMED_SHEET_NAME);
   ensureConfirmedHeaders_(confirmedSheet);
   formatConfirmedSheet_(confirmedSheet);
+  var hotelSheet = spreadsheet.getSheetByName(RSVP_CONFIG.HOTEL_SHEET_NAME)
+    || spreadsheet.insertSheet(RSVP_CONFIG.HOTEL_SHEET_NAME);
+  ensureHotelHeaders_(hotelSheet);
+  formatHotelSheet_(hotelSheet);
   installGuestEditTrigger_(spreadsheet);
   generateMissingTokensAndLinks();
-  spreadsheet.toast("Bride and groom guest sheets are ready.", "Wedding RSVP", 6);
+  spreadsheet.toast("Wedding RSVP and hotel-interest sheets are ready.", "Wedding RSVP", 6);
 }
 
 function generateMissingTokensAndLinks() {
@@ -207,6 +230,11 @@ function doPost(event) {
   try {
     lock.waitLock(10000);
     var payload = JSON.parse((event && event.postData && event.postData.contents) || "{}");
+    if (payload.action === "hotelInterest") {
+      submitHotelInterest_(payload);
+      SpreadsheetApp.flush();
+      return json_({ success: true });
+    }
     if (payload.action !== "submit") throw new Error("Unsupported request.");
 
     var token = validToken_(payload.token);
@@ -280,7 +308,7 @@ function doPost(event) {
 
 function getGuestSheets_() {
   var id = PropertiesService.getScriptProperties().getProperty(RSVP_CONFIG.PROPERTY_NAME);
-  if (!id) throw new Error("Run Set up bride and groom sheets before deploying the backend.");
+  if (!id) throw new Error("Run Set up wedding sheets before deploying the backend.");
   var spreadsheet = SpreadsheetApp.openById(id);
   return getGuestSheetsFromSpreadsheet_(spreadsheet);
 }
@@ -344,6 +372,21 @@ function ensureConfirmedHeaders_(sheet) {
   if (missing.length) sheet.getRange(1, width + 1, 1, missing.length).setValues([missing]);
 }
 
+function ensureHotelHeaders_(sheet) {
+  var width = Math.max(sheet.getLastColumn(), 1);
+  var existing = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
+  if (!existing.some(function (value) { return Boolean(value); })) {
+    sheet.getRange(1, 1, 1, RSVP_CONFIG.HOTEL_HEADERS.length)
+      .setValues([RSVP_CONFIG.HOTEL_HEADERS]);
+    return;
+  }
+
+  var missing = RSVP_CONFIG.HOTEL_HEADERS.filter(function (header) {
+    return existing.indexOf(header) === -1;
+  });
+  if (missing.length) sheet.getRange(1, width + 1, 1, missing.length).setValues([missing]);
+}
+
 function getHeaderMap_(sheet) {
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
   var map = {};
@@ -400,6 +443,121 @@ function formatConfirmedSheet_(sheet) {
   sheet.setColumnWidth(columns.guestName, 180);
   sheet.setColumnWidth(columns.dietary, 180);
   sheet.setColumnWidth(columns.notes, 240);
+}
+
+function getHotelHeaderMap_(sheet) {
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var map = {};
+  headers.forEach(function (header, index) {
+    if (header) map[String(header).trim()] = index + 1;
+  });
+  RSVP_CONFIG.HOTEL_HEADERS.forEach(function (header) {
+    if (!map[header]) throw new Error("Missing hotel-interest column: " + header);
+  });
+  return map;
+}
+
+function formatHotelSheet_(sheet) {
+  var columns = getHotelHeaderMap_(sheet);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, sheet.getLastColumn())
+    .setBackground("#b61b21")
+    .setFontColor("#fff8f1")
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center");
+  sheet.getRange(1, columns.submittedAt, sheet.getMaxRows(), 2)
+    .setNumberFormat("yyyy-mm-dd hh:mm:ss");
+  sheet.setColumnWidth(columns.partyNameEnglish, 180);
+  sheet.setColumnWidth(columns.partyNameChinese, 160);
+  sheet.setColumnWidth(columns.contactName, 180);
+  sheet.setColumnWidth(columns.checkInDate, 115);
+  sheet.setColumnWidth(columns.checkOutDate, 115);
+  sheet.setColumnWidth(columns.phone, 140);
+  sheet.setColumnWidth(columns.email, 220);
+  sheet.setColumnWidth(columns.specialRequests, 260);
+}
+
+function submitHotelInterest_(payload) {
+  var token = validToken_(payload.token);
+  var guest = findGuestByToken_(token);
+  if (!guest) throw new Error("Invitation not found.");
+
+  var contactName = clean_(payload.contactName, 120);
+  var checkInDate = validStayDate_(payload.checkInDate);
+  var checkOutDate = validStayDate_(payload.checkOutDate);
+  var phone = clean_(payload.phone, 50);
+  var email = clean_(payload.email, 180).toLowerCase();
+  var numberOfPax = boundedHotelNumber_(payload.numberOfPax, "guests");
+  var numberOfRooms = boundedHotelNumber_(payload.numberOfRooms, "rooms");
+  var bedPreference = clean_(payload.bedPreference, 30);
+  var allowedBeds = ["no-preference", "king", "twin"];
+  var specialRequests = clean_(payload.specialRequests, RSVP_CONFIG.MAX_NOTE_LENGTH);
+
+  if (!contactName) throw new Error("Please enter your full name.");
+  if (checkOutDate <= checkInDate) throw new Error("Check-out must be after check-in.");
+  if (!phone) throw new Error("Please enter a phone number.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Please enter a valid email address.");
+  if (allowedBeds.indexOf(bedPreference) === -1) bedPreference = "no-preference";
+
+  var spreadsheet = guest.sheet.getParent();
+  var sheet = spreadsheet.getSheetByName(RSVP_CONFIG.HOTEL_SHEET_NAME)
+    || spreadsheet.insertSheet(RSVP_CONFIG.HOTEL_SHEET_NAME);
+  ensureHotelHeaders_(sheet);
+  formatHotelSheet_(sheet);
+  var columns = getHotelHeaderMap_(sheet);
+  var rowNumber = findRow_(sheet, columns.token, token);
+  var isNew = !rowNumber;
+  if (isNew) rowNumber = sheet.getLastRow() + 1;
+
+  var width = sheet.getLastColumn();
+  var row;
+  if (isNew) {
+    row = [];
+    for (var columnIndex = 0; columnIndex < width; columnIndex += 1) row.push("");
+  } else {
+    row = sheet.getRange(rowNumber, 1, 1, width).getValues()[0];
+  }
+  var now = new Date();
+
+  row[columns.token - 1] = token;
+  row[columns.guestSide - 1] = guest.sheet.getName();
+  row[columns.partyNameEnglish - 1] = clean_(guest.row[guest.columns.partyNameEnglish - 1], 120);
+  row[columns.partyNameChinese - 1] = clean_(guest.row[guest.columns.partyNameChinese - 1], 120);
+  row[columns.contactName - 1] = contactName;
+  row[columns.checkInDate - 1] = checkInDate;
+  row[columns.checkOutDate - 1] = checkOutDate;
+  row[columns.phone - 1] = phone;
+  row[columns.email - 1] = email;
+  row[columns.numberOfPax - 1] = numberOfPax;
+  row[columns.numberOfRooms - 1] = numberOfRooms;
+  row[columns.bedPreference - 1] = bedPreference;
+  row[columns.specialRequests - 1] = specialRequests;
+  row[columns.responseLanguage - 1] = payload.responseLanguage === "zh" ? "zh" : "en";
+  if (isNew || !row[columns.submittedAt - 1]) row[columns.submittedAt - 1] = now;
+  row[columns.lastUpdated - 1] = now;
+
+  sheet.getRange(rowNumber, 1, 1, width).setValues([row]);
+}
+
+function validStayDate_(value) {
+  var date = clean_(value, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error("Please enter valid stay dates.");
+  var parts = date.split("-");
+  var parsed = new Date(Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])));
+  if (parsed.getUTCFullYear() !== Number(parts[0])
+    || parsed.getUTCMonth() !== Number(parts[1]) - 1
+    || parsed.getUTCDate() !== Number(parts[2])) {
+    throw new Error("Please enter valid stay dates.");
+  }
+  return date;
+}
+
+function boundedHotelNumber_(value, label) {
+  var number = Number(value);
+  if (number % 1 !== 0 || number < 1 || number > 5) {
+    throw new Error("Please select between 1 and 5 " + label + ".");
+  }
+  return number;
 }
 
 function syncConfirmedGuests_(spreadsheet, guestSide, token, sourceRow, sourceColumns, attending, guestNames, teaAttendance, dietary, notes, submittedAt) {
