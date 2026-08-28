@@ -503,8 +503,8 @@ h1 span { color: var(--red); font-weight: 400; }
 }
 .venue p { margin: 0; }
 .venue p.venue-date {
-  margin-bottom: 13px;
-  font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+  margin-bottom: 0;
+  font-size: clamp(1.625rem, 3vw, 2.0625rem);
   font-weight: 600;
 }
 .venue-name { font-size: clamp(1.625rem, 3vw, 2.0625rem); font-weight: 600; }
@@ -512,33 +512,10 @@ h1 span { color: var(--red); font-weight: 400; }
 .calendar-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
-  gap: 12px 22px;
-  margin-top: 24px;
+  gap: 10px 28px;
+  margin: 10px 0 24px;
 }
-.calendar-button {
-  display: inline-flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 28px;
-  color: #fff8f1;
-  background: #b61b21 url("assets/rsvp-border.svg") center / 100% 100% no-repeat;
-  text-decoration: none;
-  font-size: clamp(1.25rem, 2.5vw, 1.5625rem);
-  letter-spacing: .04em;
-}
-.google-calendar-link {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  color: var(--ink);
-  font-size: clamp(1.1875rem, 2.2vw, 1.4375rem);
-  text-decoration-color: rgba(201, 151, 62, .8);
-  text-underline-offset: .22em;
-}
-.calendar-button:hover { background-color: var(--red-dark); }
 .venue-map {
   width: min(680px, 100%);
   margin: 34px auto 10px;
@@ -557,7 +534,8 @@ h1 span { color: var(--red); font-weight: 400; }
   gap: 10px 28px;
   margin-top: 14px;
 }
-.venue-map a {
+.venue-map a,
+.calendar-actions a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -567,7 +545,8 @@ h1 span { color: var(--red); font-weight: 400; }
   text-decoration-color: rgba(201, 151, 62, .8);
   text-underline-offset: .22em;
 }
-.venue-map a:hover { color: var(--red); }
+.venue-map a:hover,
+.calendar-actions a:hover { color: var(--red); }
 .venue-heading-knot {
   display: block;
   width: 190px;
@@ -695,8 +674,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .rsvp-button:hover { background-color: var(--red-dark); transform: translateY(-2px); }
 .rsvp-button:focus-visible,
 .language-toggle:focus-visible,
-.calendar-button:focus-visible,
-.google-calendar-link:focus-visible,
+.calendar-actions a:focus-visible,
 .venue-map a:focus-visible,
 footer a:focus-visible {
   outline: 3px solid var(--gold);
@@ -780,7 +758,6 @@ html[lang="zh"] .rsvp-button {
 }
 html[lang="en"] .latin-text { font-family: "Noto Serif SC", serif; }
 .number-text { font-size: .86em; }
-html[lang="zh"] .venue-date { font-size: clamp(1.75rem, 3.5vw, 2.25rem); }
 .venue-date .number-text { font-weight: 600; }
 html[lang="zh"] .timeline time { font-size: 1.4375rem; }
 html[lang="zh"] .timeline p { font-size: 1.3125rem; }
@@ -839,7 +816,8 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .photo-peony { width: 175px; right: -68px; bottom: 8px; }
   .venue-map { width: min(100%, 34rem); margin-top: 26px; }
   .venue-map iframe { aspect-ratio: 4 / 3; }
-  .venue-map a { font-size: 1.3125rem; }
+  .venue-map a,
+  .calendar-actions a { font-size: 1.3125rem; }
   .photo-cloud-right { width: 185px; right: -90px; }
   .photo-moment .carousel { transform: translateY(30px); }
   .photo-moment { min-height: 400px; padding-block: 35px 70px; }
@@ -860,7 +838,7 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .attire-illustration { width: 88px; height: 130px; }
   .attire-dress { width: 78px; transform: translateX(-8px); }
   .attire-copy { min-width: 135px; }
-  .venue p.venue-date { font-size: 1.3125rem; }
+  .venue p.venue-date,
   .venue-name { font-size: 1.4375rem; }
   .venue-room { font-size: 1.1875rem; }
   .attire-layout p { font-size: 1.1875rem; }
@@ -869,7 +847,8 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   html[lang="zh"] .attire-layout p,
   html[lang="zh"] .tea-info > p { font-size: 1.375rem; line-height: 1.6; }
   html[lang="zh"] .venue p { font-size: 1.375rem; }
-  html[lang="zh"] .venue p.venue-date { font-size: 1.5625rem; }
+  html[lang="zh"] .venue p.venue-date,
+  html[lang="zh"] .venue .venue-name { font-size: 1.4375rem; }
   .tea-blossom { left: -72px; top: 150px; width: 155px; opacity: .28; }
   .tea-peony { right: -105px; top: 116px; width: 230px; opacity: .36; }
   .rsvp-section { padding-top: 115px; padding-bottom: 150px; }
