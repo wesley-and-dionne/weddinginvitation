@@ -18,28 +18,29 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content / 跳至内容</a>
     <button class="language-toggle" type="button" aria-label="Switch language">
       <span class="active" data-language="en">EN</span>
       <span aria-hidden="true">|</span>
       <span data-language="zh">中文</span>
     </button>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <header class="hero section-shell">
         <h1 class="sr-only">The Wedding of Wesley and Dionne — 1 May 2027</h1>
         <div class="hero-art-wrap">
-          <img class="hero-outer-motif hero-border" src="assets/hero-border.png" alt="" />
-          <img class="hero-outer-motif hero-left-florals" src="assets/hero-left-florals.png" alt="" />
-          <img class="hero-outer-motif hero-right-peony" src="assets/hero-right-peony.png" alt="" />
-          <img class="hero-outer-motif hero-right-blossoms" src="assets/hero-right-blossoms.png" alt="" />
+          <img class="hero-outer-motif hero-border" src="assets/hero-border.png" width="1517" height="1037" alt="" />
+          <img class="hero-outer-motif hero-left-florals" src="assets/optimized/hero-left-florals.png" width="800" height="657" alt="" />
+          <img class="hero-outer-motif hero-right-peony" src="assets/optimized/hero-right-peony.png" width="700" height="466" alt="" />
+          <img class="hero-outer-motif hero-right-blossoms" src="assets/optimized/hero-right-blossoms.png" width="308" height="420" alt="" />
           <span class="hero-emblem-extracted" aria-hidden="true"></span>
           <span class="hero-kicker-image" aria-hidden="true">
-            <img src="assets/the-wedding-of-transparent.png" alt="" />
+            <img src="assets/optimized/the-wedding-of-transparent.png" width="800" height="266" alt="" />
           </span>
           <div class="hero-name-group" aria-hidden="true">
             <p class="hero-names-live">Wesley <span>&amp;</span> Dionne</p>
             <div class="hero-center-divider">
-              <img class="hero-center-knot" src="assets/hero-name-divider.png" alt="" />
+              <img class="hero-center-knot" src="assets/hero-name-divider.png" width="2172" height="724" alt="" />
             </div>
           </div>
         </div>
@@ -48,22 +49,34 @@
       <section class="welcome section-shell" aria-labelledby="welcome-title">
         <img
           class="section-motif welcome-knot-top"
-          src="assets/motif-knot.png"
+          src="assets/optimized/motif-knot.png"
+          width="512"
+          height="316"
+          loading="lazy"
           alt=""
         />
         <img
           class="section-motif welcome-blossom"
-          src="assets/motif-blossom.png"
+          src="assets/optimized/motif-blossom.png"
+          width="512"
+          height="428"
+          loading="lazy"
           alt=""
         />
         <img
           class="section-motif welcome-peony"
-          src="assets/motif-upper-peony.png"
+          src="assets/optimized/motif-upper-peony.png"
+          width="640"
+          height="426"
+          loading="lazy"
           alt=""
         />
         <img
           class="section-motif welcome-knot-bottom"
-          src="assets/motif-knot.png"
+          src="assets/optimized/motif-knot.png"
+          width="512"
+          height="316"
+          loading="lazy"
           alt=""
         />
         <h2 id="welcome-title" class="sr-only" data-i18n="welcomeTitle">Welcome</h2>
@@ -75,9 +88,9 @@
       </section>
 
       <section class="photo-moment section-shell" aria-label="Pre-wedding photographs">
-        <img class="section-motif photo-cloud-left" src="assets/motif-left-cloud.png" alt="" />
-        <img class="section-motif photo-petals" src="assets/motif-petals.png" alt="" />
-        <img class="section-motif photo-peony" src="assets/motif-lower-peony.png" alt="" />
+        <img class="section-motif photo-cloud-left" src="assets/optimized/motif-left-cloud.png" width="512" height="341" loading="lazy" alt="" />
+        <img class="section-motif photo-petals" src="assets/optimized/motif-petals.png" width="128" height="192" loading="lazy" alt="" />
+        <img class="section-motif photo-peony" src="assets/optimized/motif-lower-peony.png" width="512" height="341" loading="lazy" alt="" />
         <div class="carousel" aria-live="off">
           <div class="carousel-slide active" aria-hidden="false">
             <span>[PHOTO 1]</span>
@@ -92,12 +105,24 @@
       </section>
 
       <section class="venue section-shell" aria-labelledby="venue-title">
-        <img class="venue-floral" src="assets/gold-peonies.png" alt="" />
+        <img class="venue-floral" src="assets/optimized/gold-peonies.png" width="640" height="426" loading="lazy" alt="" />
         <h2 id="venue-title" data-i18n="venueTitle">Date &amp; Venue</h2>
-        <img class="venue-heading-knot" src="assets/motif-knot.png" alt="" />
+        <img class="venue-heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
         <p class="venue-date" data-i18n="venueDate">01/05/2027</p>
         <p class="venue-name" data-i18n="venueName">EQ Kuala Lumpur</p>
         <p class="venue-room" data-i18n="venueRoom">Diamond Ballroom · Level 1</p>
+        <div class="calendar-actions">
+          <a class="calendar-button" href="wesley-dionne-wedding.ics" download data-i18n="calendarLink">
+            Add to Calendar
+          </a>
+          <a
+            class="google-calendar-link"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Wedding%20of%20Wesley%20%26%20Dionne&amp;dates=20270501T100000Z%2F20270501T143000Z&amp;details=Mocktail%20hour%20begins%20at%206%3A00%20PM%20and%20the%20reception%20begins%20at%207%3A00%20PM.%20Tea%20ceremony%20at%204%3A30%20PM%20is%20for%20invited%20relatives.&amp;location=EQ%20Kuala%20Lumpur%2C%20Diamond%20Ballroom%20Level%201%2C%20Equatorial%20Plaza%2C%20Jalan%20Sultan%20Ismail%2C%2050250%20Kuala%20Lumpur"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-i18n="googleCalendarLink"
+          >Google Calendar</a>
+        </div>
         <div class="venue-map">
           <iframe
             title="Map showing EQ Kuala Lumpur"
@@ -121,48 +146,48 @@
             >Open in Waze</a>
           </div>
         </div>
-        <img class="venue-bottom-knot" src="assets/motif-knot.png" alt="" />
+        <img class="venue-bottom-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
       </section>
 
       <section class="itinerary section-shell" aria-labelledby="itinerary-title">
-        <img class="motif itinerary-peony" src="assets/itinerary-peony.png" alt="" />
+        <img class="motif itinerary-peony" src="assets/optimized/itinerary-peony.png" width="640" height="426" loading="lazy" alt="" />
         <div class="section-heading">
           <h2 id="itinerary-title" data-i18n="itineraryTitle">Wedding Itinerary</h2>
-          <img class="itinerary-heading-knot" src="assets/motif-knot.png" alt="" />
+          <img class="itinerary-heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
         </div>
         <ol class="timeline">
           <li>
-            <img class="timeline-mark" src="assets/timeline-medallion.png" alt="" />
+            <img class="timeline-mark" src="assets/optimized/timeline-medallion.png" width="128" height="128" loading="lazy" alt="" />
             <div>
               <time datetime="2027-05-01T16:30" data-i18n="teaTime">4:30–5:30 PM</time>
               <p data-i18n="teaTitle">Tea Ceremony</p>
             </div>
           </li>
           <li>
-            <img class="timeline-mark" src="assets/timeline-medallion.png" alt="" />
+            <img class="timeline-mark" src="assets/optimized/timeline-medallion.png" width="128" height="128" loading="lazy" alt="" />
             <div>
               <time datetime="2027-05-01T18:00" data-i18n="mocktailTime">6:00–7:00 PM</time>
               <p data-i18n="mocktailTitle">Mocktail Hour</p>
             </div>
           </li>
           <li>
-            <img class="timeline-mark" src="assets/timeline-medallion.png" alt="" />
+            <img class="timeline-mark" src="assets/optimized/timeline-medallion.png" width="128" height="128" loading="lazy" alt="" />
             <div>
               <time datetime="2027-05-01T19:00" data-i18n="receptionTime">7:00–10:30 PM</time>
               <p data-i18n="receptionTitle">Reception</p>
             </div>
           </li>
         </ol>
-        <img class="itinerary-bottom-knot" src="assets/motif-knot.png" alt="" />
+        <img class="itinerary-bottom-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
       </section>
 
       <section class="attire section-shell" aria-labelledby="attire-title">
         <div class="section-heading">
           <h2 id="attire-title" data-i18n="attireTitle">Attire</h2>
-          <img class="attire-heading-knot" src="assets/motif-knot.png" alt="" />
+          <img class="attire-heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
         </div>
         <div class="attire-layout">
-          <img class="attire-illustration attire-tuxedo" src="assets/attire-tuxedo-jacket.png" alt="" />
+          <img class="attire-illustration attire-tuxedo" src="assets/optimized/attire-tuxedo-jacket.png" width="320" height="292" loading="lazy" alt="" />
           <div class="attire-copy">
             <p>
               <span data-i18n="blackTie">Formal</span>
@@ -170,17 +195,17 @@
               <span data-i18n="oriental">Oriental</span>
             </p>
           </div>
-          <img class="attire-illustration attire-dress" src="assets/attire-oriental-dress.png" alt="" />
+          <img class="attire-illustration attire-dress" src="assets/optimized/attire-oriental-dress.png" width="213" height="320" loading="lazy" alt="" />
         </div>
-        <img class="attire-bottom-knot" src="assets/motif-knot.png" alt="" />
+        <img class="attire-bottom-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
       </section>
 
       <section class="tea-info section-shell" aria-labelledby="tea-info-title">
-        <img class="tea-motif tea-blossom" src="assets/motif-blossom.png" alt="" />
-        <img class="tea-motif tea-peony" src="assets/itinerary-peony.png" alt="" />
+        <img class="tea-motif tea-blossom" src="assets/optimized/motif-blossom.png" width="512" height="428" loading="lazy" alt="" />
+        <img class="tea-motif tea-peony" src="assets/optimized/itinerary-peony.png" width="640" height="426" loading="lazy" alt="" />
         <div class="section-heading">
           <h2 id="tea-info-title" data-i18n="teaInfoTitle">Tea Ceremony Information</h2>
-          <img class="tea-heading-knot" src="assets/motif-knot.png" alt="" />
+          <img class="tea-heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
         </div>
         <p data-i18n="teaInfoCopy">
           During the tea ceremony, invited relatives of the bride and groom
@@ -199,7 +224,7 @@
 
     <footer aria-label="Wedding emblem">
       <div class="footer-divider" aria-hidden="true">
-        <img class="footer-knot" src="assets/hero-name-divider.png" alt="" />
+        <img class="footer-knot" src="assets/hero-name-divider.png" width="2172" height="724" loading="lazy" alt="" />
       </div>
       <span class="footer-double-happiness" aria-hidden="true">囍</span>
     </footer>

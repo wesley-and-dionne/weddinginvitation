@@ -16,24 +16,25 @@
     <script src="rsvp.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content / 跳至内容</a>
     <button class="language-toggle" type="button" aria-label="Switch language">
       <span class="active" data-language="en">EN</span>
       <span aria-hidden="true">|</span>
       <span data-language="zh">中文</span>
     </button>
 
-    <main class="rsvp-page">
-      <img class="page-motif motif-left" src="assets/motif-blossom.png" alt="" />
-      <img class="page-motif motif-right" src="assets/itinerary-peony.png" alt="" />
-      <img class="page-motif motif-lower-left" src="assets/motif-upper-peony.png" alt="" />
-      <img class="page-motif motif-petals" src="assets/motif-petals.png" alt="" />
+    <main class="rsvp-page" id="main-content" tabindex="-1">
+      <img class="page-motif motif-left" src="assets/optimized/motif-blossom.png" width="512" height="428" alt="" />
+      <img class="page-motif motif-right" src="assets/optimized/itinerary-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-lower-left" src="assets/optimized/motif-upper-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-petals" src="assets/optimized/motif-petals.png" width="128" height="192" loading="lazy" alt="" />
 
       <a class="back-link" href="index.html" data-i18n="back">← Wedding website</a>
 
       <section class="rsvp-shell" id="lookup-view" aria-labelledby="rsvp-heading">
         <div class="double-happiness" aria-hidden="true">囍</div>
         <h1 id="rsvp-heading" data-i18n="heading">Kindly RSVP</h1>
-        <img class="heading-knot" src="assets/motif-knot.png" alt="" />
+        <img class="heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" alt="" />
         <p class="deadline" data-i18n="deadline">Please respond by 1 February 2027.</p>
         <p class="intro is-loading" id="lookup-intro" data-i18n="loadingInvitation">
           Loading your invitation…
@@ -48,8 +49,11 @@
         <div class="double-happiness" aria-hidden="true">囍</div>
         <p class="eyebrow" data-i18n="invitationFound">Invitation found</p>
         <h1 id="response-heading"><span data-i18n="welcome">Welcome,</span> <span id="party-name"></span></h1>
-        <img class="heading-knot" src="assets/motif-knot.png" alt="" />
+        <img class="heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" alt="" />
         <p class="seat-note" id="seat-note"></p>
+        <p class="existing-response-note hidden" id="existing-response-note" data-i18n="existingResponse">
+          Your previous response is shown below. You may review and update it.
+        </p>
 
         <form id="response-form">
           <fieldset class="attendance-fieldset">
@@ -83,7 +87,7 @@
 
               <div class="field guest-name-field" id="guest-one-field">
                 <label for="guest-one" data-i18n="guestOne">Guest 1 full name</label>
-                <input id="guest-one" required />
+                <input id="guest-one" autocomplete="name" required />
               </div>
 
               <div class="field guest-name-field hidden" id="guest-two-field">
@@ -124,7 +128,7 @@
             </div>
           </div>
 
-          <button class="ornate-button" type="submit" data-i18n="submit">Submit RSVP</button>
+          <button class="ornate-button" id="rsvp-submit-button" type="submit" data-i18n="submit">Submit RSVP</button>
           <p class="form-status" id="submit-status" role="status"></p>
         </form>
       </section>
@@ -133,7 +137,7 @@
 
     <footer aria-hidden="true">
       <div class="footer-divider">
-        <img class="footer-knot" src="assets/hero-name-divider.png" alt="" />
+        <img class="footer-knot" src="assets/hero-name-divider.png" width="2172" height="724" loading="lazy" alt="" />
       </div>
       <span>囍</span>
     </footer>

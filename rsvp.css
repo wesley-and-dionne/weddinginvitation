@@ -29,6 +29,19 @@ body {
 
 button, input, select, textarea { font: inherit; }
 
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 10px 14px;
+  color: #fff8f1;
+  background: var(--red-dark);
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: translateY(0); }
+
 .hidden { display: none !important; }
 
 .language-toggle {
@@ -38,6 +51,8 @@ button, input, select, textarea { font: inherit; }
   right: 28px;
   border: 0;
   padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
   color: var(--ink);
   background: transparent;
   cursor: pointer;
@@ -45,7 +60,7 @@ button, input, select, textarea { font: inherit; }
   letter-spacing: .06em;
 }
 
-.language-toggle span { opacity: .48; }
+.language-toggle span { opacity: .76; }
 .language-toggle .active { color: var(--red); opacity: 1; }
 
 .rsvp-page {
@@ -58,6 +73,9 @@ button, input, select, textarea { font: inherit; }
 .back-link {
   position: relative;
   z-index: 4;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
   color: var(--ink);
   text-decoration: none;
 }
@@ -143,14 +161,28 @@ input, select, textarea {
   outline: none;
 }
 
-input:focus, select:focus, textarea:focus { border-color: var(--red); }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--red);
+  outline: 2px solid rgba(214, 164, 84, .82);
+  outline-offset: 3px;
+}
 textarea { min-height: 72px; resize: vertical; }
 
 .form-status { min-height: 27px; margin: 10px 0 0; color: var(--red); text-align: center; }
-.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 1.25rem; opacity: .72; text-wrap: balance; }
+.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 1.25rem; opacity: .82; text-wrap: balance; }
 
 .eyebrow { margin: 10px 0 0; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
 .seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 1.4375rem; text-wrap: balance; }
+.existing-response-note {
+  max-width: 520px;
+  margin: -12px auto 28px;
+  padding-block: 12px;
+  border-top: 1px solid rgba(214, 164, 84, .6);
+  border-bottom: 1px solid rgba(214, 164, 84, .6);
+  color: var(--ink);
+  text-align: center;
+  text-wrap: balance;
+}
 
 fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .attendance-fieldset { text-align: center; }
@@ -176,7 +208,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 21px 24px; }
 .field label { display: block; margin-bottom: 2px; }
 .field-full { grid-column: 1 / -1; }
-.optional { font-weight: 400; opacity: .62; }
+.optional { font-weight: 400; opacity: .76; }
 
 .ornate-button {
   display: block;
@@ -195,7 +227,11 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 }
 
 .ornate-button:hover { background-color: var(--red-dark); }
-.ornate-button:focus-visible, .language-toggle:focus-visible {
+.ornate-button:focus-visible,
+.language-toggle:focus-visible,
+.back-link:focus-visible,
+.text-button:focus-visible,
+.whatsapp-username a:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 4px;
 }
@@ -351,6 +387,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 .whatsapp-username {
   margin-top: 15px !important;
   font-size: inherit;
+  overflow-wrap: anywhere;
 }
 .whatsapp-username a {
   color: var(--red);

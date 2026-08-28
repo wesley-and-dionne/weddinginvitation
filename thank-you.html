@@ -15,44 +15,45 @@
     <script src="thank-you.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content / 跳至内容</a>
     <button class="language-toggle" type="button" aria-label="Switch language">
       <span class="active" data-language="en">EN</span>
       <span aria-hidden="true">|</span>
       <span data-language="zh">中文</span>
     </button>
 
-    <main class="rsvp-page thank-you-page">
-      <img class="page-motif motif-left" src="assets/motif-blossom.png" alt="" />
-      <img class="page-motif motif-right" src="assets/itinerary-peony.png" alt="" />
-      <img class="page-motif motif-lower-left" src="assets/motif-upper-peony.png" alt="" />
-      <img class="page-motif motif-petals" src="assets/motif-petals.png" alt="" />
+    <main class="rsvp-page thank-you-page" id="main-content" tabindex="-1">
+      <img class="page-motif motif-left" src="assets/optimized/motif-blossom.png" width="512" height="428" alt="" />
+      <img class="page-motif motif-right" src="assets/optimized/itinerary-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-lower-left" src="assets/optimized/motif-upper-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-petals" src="assets/optimized/motif-petals.png" width="128" height="192" loading="lazy" alt="" />
 
       <section class="thank-you-shell" aria-labelledby="thank-you-heading">
         <div class="double-happiness" aria-hidden="true">囍</div>
         <h1 id="thank-you-heading" data-i18n="heading">Thank You</h1>
-        <img class="heading-knot" src="assets/motif-knot.png" alt="" />
+        <img class="heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" alt="" />
         <p class="thank-you-message" id="thank-you-message"></p>
       </section>
 
       <section class="guest-information hidden" id="attending-information" aria-labelledby="information-heading">
         <h2 id="information-heading" data-i18n="informationHeading">Additional Information</h2>
-        <img class="information-knot" src="assets/motif-knot.png" alt="" />
+        <img class="information-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
 
         <div class="guest-information-grid">
           <article class="guest-information-section">
             <div class="information-heading-row">
-              <img class="information-icon" src="assets/guest-parking-icon.png" alt="" />
+              <img class="information-icon" src="assets/guest-parking-icon.png" width="384" height="358" loading="lazy" alt="" />
               <h3 data-i18n="parkingTitle">Parking</h3>
             </div>
             <p data-i18n="parkingCopy">
               The hotel provides on-site parking at a flat rate of RM15 for wedding guests. Please check with the wedding reception team for ticket validation.
             </p>
-            <img class="information-section-knot" src="assets/motif-knot.png" alt="" />
+            <img class="information-section-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
           </article>
 
           <article class="guest-information-section">
             <div class="information-heading-row">
-              <img class="information-icon" src="assets/guest-rail-icon.png" alt="" />
+              <img class="information-icon" src="assets/guest-rail-icon.png" width="309" height="384" loading="lazy" alt="" />
               <h3 data-i18n="transportTitle">Getting There by Rail</h3>
             </div>
             <ul>
@@ -60,12 +61,12 @@
               <li data-i18n="lrtCopy"><strong>LRT:</strong> KLCC station on the Kelana Jaya Line, approximately 450 metres away.</li>
               <li data-i18n="mrtCopy"><strong>MRT:</strong> Bukit Bintang station on the Kajang Line, approximately 720 metres away. From the nearby Bukit Bintang Monorail station, ride one stop towards Titiwangsa to Raja Chulan.</li>
             </ul>
-            <img class="information-section-knot" src="assets/motif-knot.png" alt="" />
+            <img class="information-section-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
           </article>
 
           <article class="guest-information-section">
             <div class="information-heading-row">
-              <img class="information-icon" src="assets/guest-hotel-icon.png" alt="" />
+              <img class="information-icon" src="assets/guest-hotel-icon.png" width="378" height="384" loading="lazy" alt="" />
               <h3 data-i18n="roomTitle">Accommodation</h3>
             </div>
             <p data-i18n="roomCopy">
@@ -74,12 +75,12 @@
             <a class="ornate-button express-interest-button" id="hotel-interest-link" href="hotel-interest.html" data-i18n="expressInterest">
               Express interest
             </a>
-            <img class="information-section-knot" src="assets/motif-knot.png" alt="" />
+            <img class="information-section-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
           </article>
 
           <article class="guest-information-section">
             <div class="information-heading-row">
-              <img class="information-icon" src="assets/guest-whatsapp-icon.png" alt="" />
+              <img class="information-icon" src="assets/guest-whatsapp-icon.png" width="384" height="339" loading="lazy" alt="" />
               <h3 data-i18n="contactTitle">Contact</h3>
             </div>
             <p data-i18n="contactCopy">For additional assistance, please contact the couple.</p>
@@ -87,7 +88,7 @@
               <span data-i18n="contactName">Dionne:</span>
               <a href="https://wa.me/dionneleongwk" target="_blank" rel="noopener noreferrer">@dionneleongwk</a>
             </p>
-            <img class="information-section-knot" src="assets/motif-knot.png" alt="" />
+            <img class="information-section-knot" src="assets/optimized/motif-knot.png" width="512" height="316" loading="lazy" alt="" />
           </article>
         </div>
       </section>
@@ -101,7 +102,7 @@
 
     <footer aria-hidden="true">
       <div class="footer-divider">
-        <img class="footer-knot" src="assets/hero-name-divider.png" alt="" />
+        <img class="footer-knot" src="assets/hero-name-divider.png" width="2172" height="724" loading="lazy" alt="" />
       </div>
       <span>囍</span>
     </footer>

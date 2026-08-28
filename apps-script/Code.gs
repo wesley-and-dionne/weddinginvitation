@@ -208,6 +208,8 @@ function doGet(event) {
     var sheet = guest.sheet;
     var columns = guest.columns;
     var row = guest.row;
+    var savedResponse = clean_(row[columns.response - 1], 3);
+    if (savedResponse !== "Yes" && savedResponse !== "No") savedResponse = "";
     return json_({
       success: true,
       invitation: {
@@ -216,7 +218,18 @@ function doGet(event) {
         partyNameChinese: clean_(row[columns.partyNameChinese - 1], 120),
         preferredLanguage: clean_(row[columns.preferredLanguage - 1], 2).toLowerCase() === "zh" ? "zh" : "en",
         seats: boundedSeats_(row[columns.seats - 1]),
-        teaInvited: boolean_(row[columns.teaInvited - 1])
+        teaInvited: boolean_(row[columns.teaInvited - 1]),
+        hasResponded: Boolean(savedResponse),
+        response: savedResponse,
+        attendeeCount: savedResponse === "Yes" ? Number(row[columns.attendeeCount - 1]) || 1 : 0,
+        guestOne: clean_(row[columns.guestOne - 1], 120),
+        guestTwo: clean_(row[columns.guestTwo - 1], 120),
+        guestThree: clean_(row[columns.guestThree - 1], 120),
+        guestFour: clean_(row[columns.guestFour - 1], 120),
+        guestFive: clean_(row[columns.guestFive - 1], 120),
+        teaAttendance: clean_(row[columns.teaAttendance - 1], 3),
+        dietary: clean_(row[columns.dietary - 1], RSVP_CONFIG.MAX_NOTE_LENGTH),
+        notes: clean_(row[columns.notes - 1], RSVP_CONFIG.MAX_NOTE_LENGTH)
       }
     });
   } catch (error) {

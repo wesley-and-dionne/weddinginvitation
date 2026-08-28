@@ -143,6 +143,10 @@ const updateLinks = () => {
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLanguage;
+  languageButton.setAttribute(
+    "aria-label",
+    currentLanguage === "en" ? "Switch to Chinese" : "切换至英文",
+  );
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     renderTranslation(element, text(element.dataset.i18n));
   });
@@ -240,7 +244,10 @@ form.addEventListener("submit", async (event) => {
   if (demoInvitations[token]) {
     form.classList.add("hidden");
     confirmation.classList.remove("hidden");
-    confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+    confirmation.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "center",
+    });
     return;
   }
 
@@ -257,7 +264,10 @@ form.addEventListener("submit", async (event) => {
     if (!response.ok || !result.success) throw new Error(result.message || text("submitError"));
     form.classList.add("hidden");
     confirmation.classList.remove("hidden");
-    confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
+    confirmation.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "center",
+    });
   } catch (error) {
     status.textContent = error.message === "Unsupported request."
       ? text("backendOutdated")

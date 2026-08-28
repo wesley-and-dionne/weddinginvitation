@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wesley and Dionne//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Asia/Kuala_Lumpur
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:MYT
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20270501-wesley-dionne@wesley-and-dionne.github.io
+DTSTAMP:20260829T000000Z
+DTSTART;TZID=Asia/Kuala_Lumpur:20270501T180000
+DTEND;TZID=Asia/Kuala_Lumpur:20270501T223000
+SUMMARY:The Wedding of Wesley & Dionne
+LOCATION:EQ Kuala Lumpur\, Diamond Ballroom Level 1\, Equatorial Plaza\, Jalan Sultan Ismail\, 50250 Kuala Lumpur
+DESCRIPTION:Mocktail hour begins at 6:00 PM and the reception begins at 7:00 PM. Tea ceremony at 4:30 PM is for invited relatives.\n\nGoogle Maps: https://www.google.com/maps/search/?api=1&query=EQ%20Kuala%20Lumpur
+URL:https://wesley-and-dionne.github.io/weddinginvitation/
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR

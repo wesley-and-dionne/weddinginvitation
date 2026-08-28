@@ -32,6 +32,19 @@ body {
 
 button, a { font: inherit; }
 
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 10px 14px;
+  color: #fff8f1;
+  background: var(--red-dark);
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: translateY(0); }
+
 .language-toggle {
   position: absolute;
   z-index: 10;
@@ -39,6 +52,8 @@ button, a { font: inherit; }
   right: max(calc((100vw - 1478px) / 2 + 70px), 32px);
   border: 0;
   padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
   color: var(--ink);
   background: transparent;
   cursor: pointer;
@@ -46,7 +61,7 @@ button, a { font: inherit; }
   letter-spacing: .06em;
 }
 
-.language-toggle span { opacity: .48; }
+.language-toggle span { opacity: .76; }
 .language-toggle .active { opacity: 1; color: var(--red); }
 
 main { overflow: hidden; }
@@ -94,8 +109,8 @@ main { overflow: hidden; }
   width: 19.6%;
   aspect-ratio: 1;
   background: #b61b21;
-  -webkit-mask: url("assets/double-happiness.png") center / contain no-repeat;
-  mask: url("assets/double-happiness.png") center / contain no-repeat;
+  -webkit-mask: url("assets/optimized/double-happiness.png") center / contain no-repeat;
+  mask: url("assets/optimized/double-happiness.png") center / contain no-repeat;
 }
 
 .hero-kicker-image {
@@ -494,6 +509,36 @@ h1 span { color: var(--red); font-weight: 400; }
 }
 .venue-name { font-size: clamp(1.625rem, 3vw, 2.0625rem); font-weight: 600; }
 .venue-room { font-size: clamp(1.25rem, 2.4vw, 1.5625rem); }
+.calendar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 22px;
+  margin-top: 24px;
+}
+.calendar-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 28px;
+  color: #fff8f1;
+  background: #b61b21 url("assets/rsvp-border.svg") center / 100% 100% no-repeat;
+  text-decoration: none;
+  font-size: clamp(1.25rem, 2.5vw, 1.5625rem);
+  letter-spacing: .04em;
+}
+.google-calendar-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--ink);
+  font-size: clamp(1.1875rem, 2.2vw, 1.4375rem);
+  text-decoration-color: rgba(201, 151, 62, .8);
+  text-underline-offset: .22em;
+}
+.calendar-button:hover { background-color: var(--red-dark); }
 .venue-map {
   width: min(680px, 100%);
   margin: 34px auto 10px;
@@ -513,7 +558,9 @@ h1 span { color: var(--red); font-weight: 400; }
   margin-top: 14px;
 }
 .venue-map a {
-  display: inline-block;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
   color: var(--ink);
   font-size: clamp(1.4375rem, 2.7vw, 1.8125rem);
   line-height: 1.25;
@@ -646,7 +693,15 @@ h1 span { color: var(--red); font-weight: 400; }
   transition: background-color .2s ease, transform .2s ease;
 }
 .rsvp-button:hover { background-color: var(--red-dark); transform: translateY(-2px); }
-.rsvp-button:focus-visible, .language-toggle:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.rsvp-button:focus-visible,
+.language-toggle:focus-visible,
+.calendar-button:focus-visible,
+.google-calendar-link:focus-visible,
+.venue-map a:focus-visible,
+footer a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
 
 footer {
   width: min(900px, calc(100% - 40px));
@@ -758,6 +813,7 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
     transition: opacity .2s ease;
   }
   .language-toggle.mobile-sticky-visible { opacity: 1; pointer-events: auto; }
+  .language-toggle:focus-visible { opacity: 1; pointer-events: auto; }
   .language-toggle span { opacity: 1; }
   .section-shell { width: min(100% - 26px, 980px); }
   .hero { min-height: 0; padding: 0; }
@@ -770,7 +826,9 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   html[lang="zh"] .welcome > p { font-size: 1.5rem; line-height: 1.65; }
   html[lang="zh"] .rsvp-deadline {
     font-size: 1.0625rem;
-    white-space: nowrap;
+    max-width: 22rem;
+    margin-inline: auto;
+    text-wrap: balance;
   }
   .welcome { margin-top: 24px; padding: 62px 14px; }
   .welcome-knot-top, .welcome-knot-bottom { width: 125px; }
@@ -815,6 +873,16 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .tea-blossom { left: -72px; top: 150px; width: 155px; opacity: .28; }
   .tea-peony { right: -105px; top: 116px; width: 230px; opacity: .36; }
   .rsvp-section { padding-top: 115px; padding-bottom: 150px; }
+}
+
+@media (max-width: 360px) {
+  .hero-name-group { top: 59%; }
+  .hero-names-live {
+    padding-inline: 8px;
+    font-size: 1.875rem;
+    white-space: normal;
+  }
+  .hero-center-divider { width: 78%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

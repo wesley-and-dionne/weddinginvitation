@@ -17,24 +17,25 @@
     <script src="hotel-interest.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content / 跳至内容</a>
     <button class="language-toggle" type="button" aria-label="Switch language">
       <span class="active" data-language="en">EN</span>
       <span aria-hidden="true">|</span>
       <span data-language="zh">中文</span>
     </button>
 
-    <main class="rsvp-page hotel-interest-page">
-      <img class="page-motif motif-left hotel-motif-left" src="assets/motif-blossom.png" alt="" />
-      <img class="page-motif motif-right hotel-motif-right" src="assets/itinerary-peony.png" alt="" />
-      <img class="page-motif motif-lower-left hotel-motif-lower" src="assets/motif-upper-peony.png" alt="" />
-      <img class="page-motif motif-petals" src="assets/motif-petals.png" alt="" />
+    <main class="rsvp-page hotel-interest-page" id="main-content" tabindex="-1">
+      <img class="page-motif motif-left hotel-motif-left" src="assets/optimized/motif-blossom.png" width="512" height="428" alt="" />
+      <img class="page-motif motif-right hotel-motif-right" src="assets/optimized/itinerary-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-lower-left hotel-motif-lower" src="assets/optimized/motif-upper-peony.png" width="640" height="426" loading="lazy" alt="" />
+      <img class="page-motif motif-petals" src="assets/optimized/motif-petals.png" width="128" height="192" loading="lazy" alt="" />
 
       <a class="back-link" id="back-link" href="thank-you.html" data-i18n="back">← Additional information</a>
 
       <section class="rsvp-shell hotel-interest-shell" aria-labelledby="hotel-heading">
         <div class="double-happiness" aria-hidden="true">囍</div>
         <h1 id="hotel-heading" data-i18n="heading">Accommodation Interest</h1>
-        <img class="heading-knot" src="assets/motif-knot.png" alt="" />
+        <img class="heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" alt="" />
 
         <div class="rate-card">
           <p class="rate-eyebrow" data-i18n="rateHeading">Preferential EQ room rate</p>
@@ -100,12 +101,12 @@
 
             <div class="field field-full">
               <label for="bed-preference" data-i18n="bedPreference">Bed preference</label>
-              <select id="bed-preference" name="bedPreference">
+              <select id="bed-preference" name="bedPreference" aria-describedby="bed-note">
                 <option value="no-preference" data-i18n="noPreference">No preference</option>
                 <option value="king" data-i18n="kingBed">King bed</option>
                 <option value="twin" data-i18n="twinBeds">Twin beds</option>
               </select>
-              <p class="field-note" data-i18n="bedNote">Bed type is subject to hotel availability.</p>
+              <p class="field-note" id="bed-note" data-i18n="bedNote">Bed type is subject to hotel availability.</p>
             </div>
 
             <div class="field field-full">
@@ -137,7 +138,7 @@
 
     <footer aria-hidden="true">
       <div class="footer-divider">
-        <img class="footer-knot" src="assets/hero-name-divider.png" alt="" />
+        <img class="footer-knot" src="assets/hero-name-divider.png" width="2172" height="724" loading="lazy" alt="" />
       </div>
       <span>囍</span>
     </footer>

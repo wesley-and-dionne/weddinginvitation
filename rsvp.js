@@ -26,6 +26,8 @@ const translations = {
     optional: "(optional)",
     notes: "Notes",
     submit: "Submit RSVP",
+    updateSubmit: "Update RSVP",
+    existingResponse: "Your previous response is shown below. You may review and update it.",
     seatOne: "We have reserved 1 seat for you.",
     seatMany: "We have reserved {count} seats for your party.",
     setupPending: "This invitation will work after the private guest list is connected.",
@@ -59,6 +61,8 @@ const translations = {
     optional: "（选填）",
     notes: "留言",
     submit: "提交回复",
+    updateSubmit: "更新回复",
+    existingResponse: "以下是您之前提交的回复，您可以检查并更新。",
     seatOne: "已为您预留1席。",
     seatMany: "已为您预留{count}席。",
     setupPending: "连接私人宾客名单后，此邀请即可使用。",
@@ -107,6 +111,8 @@ const guestNameFields = Array.from(document.querySelectorAll(".guest-name-field"
 const guestNameInputs = guestNameFields.map((field) => field.querySelector("input"));
 const teaField = document.querySelector("#tea-field");
 const attendanceDetails = document.querySelector("#attendance-details");
+const existingResponseNote = document.querySelector("#existing-response-note");
+const submitButton = document.querySelector("#rsvp-submit-button");
 
 let currentLanguage = explicitLanguage === "zh" ? "zh" : "en";
 let currentInvitation = null;
@@ -130,6 +136,19 @@ const normalizeInvitation = (invitation) => ({
   preferredLanguage: invitation.preferredLanguage === "zh" ? "zh" : "en",
   seats: Math.max(1, Number(invitation.seats) || 1),
   teaInvited: parseBoolean(invitation.teaInvited),
+  hasResponded: parseBoolean(invitation.hasResponded),
+  response: invitation.response === "Yes" || invitation.response === "No" ? invitation.response : "",
+  attendeeCount: Math.max(0, Number(invitation.attendeeCount) || 0),
+  guestNames: [
+    invitation.guestOne || "",
+    invitation.guestTwo || "",
+    invitation.guestThree || "",
+    invitation.guestFour || "",
+    invitation.guestFive || "",
+  ],
+  teaAttendance: invitation.teaAttendance === "Yes" ? "yes" : "no",
+  dietary: invitation.dietary || "",
+  notes: invitation.notes || "",
 });
 
 const partyName = () => currentLanguage === "zh"
@@ -181,6 +200,10 @@ const renderInvitationText = () => {
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLanguage;
+  languageButton.setAttribute(
+    "aria-label",
+    currentLanguage === "en" ? "Switch to Chinese" : "切换至英文",
+  );
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     renderTranslation(element, text(element.dataset.i18n));
   });
@@ -194,7 +217,10 @@ const applyLanguage = () => {
 const showResponseView = () => {
   lookupView.classList.add("hidden");
   responseView.classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({
+    top: 0,
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+  });
 };
 
 const showLookupMessage = (message) => {
@@ -228,8 +254,28 @@ const loadInvitation = (rawInvitation) => {
     option.textContent = `${count}`;
     attendeeCount.append(option);
   }
-  attendeeCount.value = currentInvitation.seats;
+  const savedCount = Math.min(currentInvitation.attendeeCount, currentInvitation.seats);
+  attendeeCount.value = currentInvitation.response === "Yes" && savedCount
+    ? savedCount
+    : currentInvitation.seats;
   teaField.classList.toggle("hidden", !currentInvitation.teaInvited);
+  existingResponseNote.classList.toggle("hidden", !currentInvitation.hasResponded);
+  submitButton.dataset.i18n = currentInvitation.hasResponded ? "updateSubmit" : "submit";
+
+  if (currentInvitation.hasResponded) {
+    const savedRadio = document.querySelector(
+      `input[name="attendance"][value="${currentInvitation.response === "Yes" ? "yes" : "no"}"]`,
+    );
+    if (savedRadio) savedRadio.checked = true;
+    currentInvitation.guestNames.forEach((name, index) => {
+      guestNameInputs[index].value = name;
+    });
+    if (currentInvitation.teaInvited) {
+      document.querySelector("#tea-attendance").value = currentInvitation.teaAttendance;
+    }
+    document.querySelector("#dietary").value = currentInvitation.dietary;
+    document.querySelector("#notes").value = currentInvitation.notes;
+  }
   applyLanguage();
   updateGuestFields();
   showResponseView();

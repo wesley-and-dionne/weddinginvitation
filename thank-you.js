@@ -77,6 +77,10 @@ const renderTranslation = (element, value) => {
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLanguage;
+  languageButton.setAttribute(
+    "aria-label",
+    currentLanguage === "en" ? "Switch to Chinese" : "切换至英文",
+  );
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     renderTranslation(element, translations[currentLanguage][element.dataset.i18n]);
   });

@@ -18,6 +18,8 @@ const translations = {
     venueRoom: "Diamond Ballroom · Level 1",
     mapLink: "Open in Google Maps",
     wazeLink: "Open in Waze",
+    calendarLink: "Add to Calendar",
+    googleCalendarLink: "Google Calendar",
     attireTitle: "Attire",
     blackTie: "Formal",
     or: "or",
@@ -46,6 +48,8 @@ const translations = {
     venueRoom: "一楼 Diamond Ballroom",
     mapLink: "在 Google 地图中打开",
     wazeLink: "在 Waze 中打开",
+    calendarLink: "加入日历",
+    googleCalendarLink: "Google 日历",
     attireTitle: "着装建议",
     blackTie: "正式礼服",
     or: "或",
@@ -106,6 +110,10 @@ const renderTranslation = (element, text, language) => {
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLanguage;
+  languageButton.setAttribute(
+    "aria-label",
+    currentLanguage === "en" ? "Switch to Chinese" : "切换至英文",
+  );
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     renderTranslation(
       element,
@@ -140,9 +148,10 @@ window.addEventListener("resize", updateMobileLanguageButton);
 updateMobileLanguageButton();
 
 const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 let currentSlide = 0;
 
-if (slides.length > 1) {
+if (slides.length > 1 && !reducedMotionQuery.matches) {
   window.setInterval(() => {
     slides[currentSlide].classList.remove("active");
     slides[currentSlide].setAttribute("aria-hidden", "true");

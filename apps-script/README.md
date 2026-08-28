@@ -23,6 +23,8 @@ Running setup installs an authorized edit trigger. Tokens and invitation links t
 
 When a party submits `Yes`, `Confirmed Guests` receives one row per attending guest with the bride/groom side, party names, guest name, tea ceremony response, dietary requirements, notes, and submission time. A resubmission replaces that party's compiled rows. Changing the RSVP to `No` removes those rows from the compilation while preserving the original RSVP record.
 
+When a guest reopens the same personalised RSVP link, the website retrieves and displays their existing response. They can review the saved attendance choice, guest names, tea ceremony response, dietary requirements, and notes before submitting an update.
+
 When an attending guest selects **Express interest** on the additional-information page, the accommodation form carries their invitation token and party details automatically. Submissions are added to the `Hotel Interest` sheet in the same spreadsheet. Submitting the form again updates the existing row for that invitation instead of creating a duplicate.
 
 The accommodation form records the contact name, check-in and check-out dates, phone number, email address, number of guests, number of rooms, bed preference, optional requests, response language, and submission times. It does not request passport, identification, payment, or card details.

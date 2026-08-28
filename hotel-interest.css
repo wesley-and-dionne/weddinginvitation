@@ -42,7 +42,7 @@
   margin: 9px auto 0 !important;
   font-size: 1.1875rem;
   line-height: 1.35;
-  opacity: .76;
+  opacity: .84;
 }
 
 .hotel-intro,
@@ -62,7 +62,7 @@
   margin-top: 0;
   margin-bottom: 30px;
   font-size: 1.125rem;
-  opacity: .72;
+  opacity: .84;
 }
 
 .hotel-form {
@@ -88,7 +88,7 @@
   margin: 5px 0 0;
   font-size: 1rem;
   font-weight: 400;
-  opacity: .62;
+  opacity: .82;
 }
 
 .hotel-submit-button {
