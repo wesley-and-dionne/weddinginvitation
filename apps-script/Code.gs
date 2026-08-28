@@ -498,6 +498,13 @@ function submitHotelInterest_(payload) {
   if (!phone) throw new Error("Please enter a phone number.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Please enter a valid email address.");
   if (allowedBeds.indexOf(bedPreference) === -1) bedPreference = "no-preference";
+  var reservedSeats = boundedSeats_(guest.row[guest.columns.seats - 1]);
+  if (numberOfPax > reservedSeats) {
+    throw new Error("The number of hotel guests exceeds the seats reserved for this invitation.");
+  }
+  if (numberOfRooms > numberOfPax) {
+    throw new Error("The number of rooms cannot exceed the number of hotel guests.");
+  }
 
   var spreadsheet = guest.sheet.getParent();
   var sheet = spreadsheet.getSheetByName(RSVP_CONFIG.HOTEL_SHEET_NAME)

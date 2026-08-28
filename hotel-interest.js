@@ -29,6 +29,7 @@ const translations = {
     missingLink: "Please open this form from your personalised wedding invitation.",
     unavailable: "We could not load this invitation. Please return to the wedding website and try again.",
     invalidDates: "Check-out must be after the check-in date.",
+    backendOutdated: "The accommodation form is not connected to the latest backend yet. Please try again after it has been updated.",
     submitError: "Unable to record your interest. Please try again.",
     confirmationHeading: "Interest received",
     confirmationCopy: "Thank you. Your accommodation interest has been recorded. We will share booking details once availability is confirmed.",
@@ -62,6 +63,7 @@ const translations = {
     missingLink: "请通过您的专属婚礼邀请链接填写此表格。",
     unavailable: "暂时无法载入您的邀请，请返回婚礼网站后再试。",
     invalidDates: "退房日期必须晚于入住日期。",
+    backendOutdated: "住宿表格尚未连接至最新系统，请在更新完成后再试。",
     submitError: "暂时无法登记住宿意向，请稍后再试。",
     confirmationHeading: "已收到住宿意向",
     confirmationCopy: "谢谢。您的住宿意向已登记，我们将在确认房间供应后提供预订详情。",
@@ -70,8 +72,8 @@ const translations = {
 };
 
 const demoInvitations = {
-  "preview-one": { partyNameEnglish: "Alex Tan", partyNameChinese: "陈先生" },
-  "preview-two": { partyNameEnglish: "The Tan Family", partyNameChinese: "陈府" },
+  "preview-one": { partyNameEnglish: "Alex Tan", partyNameChinese: "陈先生", seats: 1 },
+  "preview-two": { partyNameEnglish: "The Tan Family", partyNameChinese: "陈府", seats: 2 },
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -87,6 +89,8 @@ const submitButton = form.querySelector('button[type="submit"]');
 const confirmation = document.querySelector("#hotel-confirmation");
 const checkIn = document.querySelector("#check-in");
 const checkOut = document.querySelector("#check-out");
+const numberOfPax = document.querySelector("#number-of-pax");
+const numberOfRooms = document.querySelector("#number-of-rooms");
 const backLink = document.querySelector("#back-link");
 const returnLink = document.querySelector("#return-link");
 
@@ -150,10 +154,31 @@ const applyLanguage = () => {
 };
 
 const showForm = (rawInvitation) => {
-  invitation = rawInvitation;
+  invitation = {
+    ...rawInvitation,
+    seats: Math.min(5, Math.max(1, Number(rawInvitation.seats) || 1)),
+  };
+  populateNumberOptions(numberOfPax, invitation.seats);
+  updateRoomOptions();
   form.classList.remove("hidden");
   applyLanguage();
 };
+
+const populateNumberOptions = (select, maximum) => {
+  const previousValue = Math.min(Number(select.value) || 1, maximum);
+  select.replaceChildren();
+  for (let value = 1; value <= maximum; value += 1) {
+    const option = document.createElement("option");
+    option.value = String(value);
+    option.textContent = String(value);
+    select.append(option);
+  }
+  select.value = String(previousValue);
+};
+
+function updateRoomOptions() {
+  populateNumberOptions(numberOfRooms, Math.max(1, Number(numberOfPax.value) || 1));
+}
 
 const loadInvitation = async () => {
   if (!token) {
@@ -186,6 +211,7 @@ languageButton.addEventListener("click", () => {
 });
 
 checkIn.addEventListener("change", updateDateMinimums);
+numberOfPax.addEventListener("change", updateRoomOptions);
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -204,8 +230,8 @@ form.addEventListener("submit", async (event) => {
     checkOutDate: checkOut.value,
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
-    numberOfPax: Number(document.querySelector("#number-of-pax").value),
-    numberOfRooms: Number(document.querySelector("#number-of-rooms").value),
+    numberOfPax: Number(numberOfPax.value),
+    numberOfRooms: Number(numberOfRooms.value),
     bedPreference: document.querySelector("#bed-preference").value,
     specialRequests: document.querySelector("#special-requests").value,
     responseLanguage: currentLanguage,
@@ -233,7 +259,9 @@ form.addEventListener("submit", async (event) => {
     confirmation.classList.remove("hidden");
     confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
   } catch (error) {
-    status.textContent = error.message || text("submitError");
+    status.textContent = error.message === "Unsupported request."
+      ? text("backendOutdated")
+      : error.message || text("submitError");
   } finally {
     submitButton.disabled = false;
     renderTranslation(submitButton, text("submit"));
