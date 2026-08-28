@@ -655,26 +655,15 @@ footer {
   text-align: center;
 }
 .footer-divider {
-  display: flex;
+  display: block;
   width: min(560px, 100%);
   margin: 0 auto 20px;
-  align-items: center;
 }
-.footer-divider::before,
-.footer-divider::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  background: var(--gold-soft);
-  opacity: .68;
-}
-.footer-divider::before { margin-right: -42px; }
-.footer-divider::after { margin-left: -42px; }
 .footer-knot {
   display: block;
-  width: 190px;
+  width: 100%;
   height: 48px;
-  margin: 0;
+  margin: 0 auto;
   object-fit: cover;
   object-position: center;
   opacity: .68;

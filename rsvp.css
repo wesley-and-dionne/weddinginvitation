@@ -224,20 +224,21 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .information-grid p { margin: 0; }
 .information-wide { grid-column: 1 / -1; text-align: center; }
 .home-button {
-  width: min(24rem, 94%);
+  width: min(28rem, 94%);
   max-width: 100%;
-  border: 3px double var(--gold);
-  padding: .9em 1.15em;
-  background-image: none;
-  font-size: clamp(1.3125rem, 4vw, 1.625rem);
+  border: 0;
+  padding: .9em 1.2em;
+  background: #b61b21 url("assets/rsvp-border.svg") center / 100% 100% no-repeat;
+  font-size: clamp(1.1875rem, 3.5vw, 1.4375rem);
   line-height: 1.2;
-  letter-spacing: .035em;
-  overflow-wrap: anywhere;
+  letter-spacing: .04em;
+  overflow-wrap: normal;
   text-wrap: balance;
 }
 
 footer { width: min(600px, calc(100% - 60px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
-footer img { display: block; width: 100%; height: 48px; object-fit: cover; object-position: center; opacity: .62; }
+.footer-divider { display: block; width: min(560px, 100%); margin: 0 auto 20px; }
+.footer-knot { display: block; width: 100%; height: 48px; margin: 0 auto; object-fit: cover; object-position: center; opacity: .68; }
 footer span { color: var(--red); font-family: "Noto Serif SC", serif; font-size: 1.625rem; }
 
 html[lang="zh"] body { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; }
@@ -358,25 +359,20 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   text-underline-offset: .2em;
 }
 .express-interest-button {
-  display: inline-block;
-  min-width: 210px;
-  max-width: 100%;
-  margin-top: 22px;
-  border: 3px double var(--gold);
-  padding: 10px 24px;
-  color: var(--cream);
-  background: var(--red);
+  width: min(22rem, 90%);
+  margin-top: 24px;
+  padding: .9em 1.2em;
+  background: #b61b21 url("assets/rsvp-border.svg") center / 100% 100% no-repeat;
   font-family: "Noto Serif SC", Georgia, serif;
-  font-size: 1.3125rem;
+  font-size: clamp(1.1875rem, 3.5vw, 1.4375rem);
   line-height: 1.2;
-  letter-spacing: .06em;
-  text-decoration: none;
-  overflow-wrap: anywhere;
+  letter-spacing: .04em;
+  overflow-wrap: normal;
   text-wrap: balance;
 }
 .express-interest-button:hover,
 .express-interest-button:focus-visible {
-  background: var(--red-dark);
+  background-color: var(--red-dark);
 }
 .thank-you-actions {
   position: relative;
@@ -426,7 +422,8 @@ html[lang="en"] select {
   .motif-lower-left { width: 210px; left: -125px; bottom: 95px; opacity: .16; }
   .motif-petals { right: 2px; top: 310px; opacity: .16; }
   .ornate-button { font-size: 1.8125rem; }
-  .home-button { font-size: clamp(1.25rem, 5vw, 1.4375rem); letter-spacing: .02em; }
+  .home-button,
+  .express-interest-button { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: .02em; }
   .information-grid h2 { font-size: 1.6875rem; }
   html[lang="zh"] h1 { font-size: 2.375rem; }
   html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.25rem; text-wrap: balance; }
