@@ -1,5 +1,6 @@
 var RSVP_CONFIG = {
   SHEET_NAMES: ["Bride Guests", "Groom Guests"],
+  CONFIRMED_SHEET_NAME: "Confirmed Guests",
   WEBSITE_URL: "https://wesley-and-dionne.github.io/weddinginvitation/",
   PROPERTY_NAME: "WEDDING_RSVP_SPREADSHEET_ID",
   MAX_SEATS: 5,
@@ -25,6 +26,17 @@ var RSVP_CONFIG = {
     "responseLanguage",
     "submittedAt",
     "lastUpdated"
+  ],
+  CONFIRMED_HEADERS: [
+    "token",
+    "guestSide",
+    "partyNameEnglish",
+    "partyNameChinese",
+    "guestName",
+    "teaAttendance",
+    "dietary",
+    "notes",
+    "submittedAt"
   ]
 };
 
@@ -50,6 +62,10 @@ function setupWeddingRsvp() {
     ensureHeaders_(sheet);
     formatGuestSheet_(sheet);
   });
+  var confirmedSheet = spreadsheet.getSheetByName(RSVP_CONFIG.CONFIRMED_SHEET_NAME)
+    || spreadsheet.insertSheet(RSVP_CONFIG.CONFIRMED_SHEET_NAME);
+  ensureConfirmedHeaders_(confirmedSheet);
+  formatConfirmedSheet_(confirmedSheet);
   installGuestEditTrigger_(spreadsheet);
   generateMissingTokensAndLinks();
   spreadsheet.toast("Bride and groom guest sheets are ready.", "Wedding RSVP", 6);
@@ -224,6 +240,8 @@ function doPost(event) {
     var teaAttendance = attending && teaInvited
       ? payload.teaAttendance === "yes" ? "Yes" : "No"
       : "";
+    var dietary = attending ? clean_(payload.dietary, RSVP_CONFIG.MAX_NOTE_LENGTH) : "";
+    var notes = attending ? clean_(payload.notes, RSVP_CONFIG.MAX_NOTE_LENGTH) : "";
     var now = new Date();
 
     set_(sheet, rowNumber, columns, "response", response);
@@ -232,11 +250,24 @@ function doPost(event) {
       set_(sheet, rowNumber, columns, guestHeaders[guestIndex], guestNames[guestIndex] || "");
     }
     set_(sheet, rowNumber, columns, "teaAttendance", teaAttendance);
-    set_(sheet, rowNumber, columns, "dietary", attending ? clean_(payload.dietary, RSVP_CONFIG.MAX_NOTE_LENGTH) : "");
-    set_(sheet, rowNumber, columns, "notes", attending ? clean_(payload.notes, RSVP_CONFIG.MAX_NOTE_LENGTH) : "");
+    set_(sheet, rowNumber, columns, "dietary", dietary);
+    set_(sheet, rowNumber, columns, "notes", notes);
     set_(sheet, rowNumber, columns, "responseLanguage", payload.responseLanguage === "zh" ? "zh" : "en");
     set_(sheet, rowNumber, columns, "submittedAt", now);
     set_(sheet, rowNumber, columns, "lastUpdated", now);
+    syncConfirmedGuests_(
+      sheet.getParent(),
+      sheet.getName(),
+      token,
+      row,
+      columns,
+      attending,
+      guestNames,
+      teaAttendance,
+      dietary,
+      notes,
+      now
+    );
     SpreadsheetApp.flush();
     return json_({ success: true });
   } catch (error) {
@@ -298,6 +329,21 @@ function ensureHeaders_(sheet) {
   if (missing.length) sheet.getRange(1, width + 1, 1, missing.length).setValues([missing]);
 }
 
+function ensureConfirmedHeaders_(sheet) {
+  var width = Math.max(sheet.getLastColumn(), 1);
+  var existing = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
+  if (!existing.some(function (value) { return Boolean(value); })) {
+    sheet.getRange(1, 1, 1, RSVP_CONFIG.CONFIRMED_HEADERS.length)
+      .setValues([RSVP_CONFIG.CONFIRMED_HEADERS]);
+    return;
+  }
+
+  var missing = RSVP_CONFIG.CONFIRMED_HEADERS.filter(function (header) {
+    return existing.indexOf(header) === -1;
+  });
+  if (missing.length) sheet.getRange(1, width + 1, 1, missing.length).setValues([missing]);
+}
+
 function getHeaderMap_(sheet) {
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
   var map = {};
@@ -325,6 +371,77 @@ function formatGuestSheet_(sheet) {
   sheet.setColumnWidth(columns.invitationUrl, 430);
   sheet.setColumnWidth(columns.dietary, 180);
   sheet.setColumnWidth(columns.notes, 240);
+}
+
+function getConfirmedHeaderMap_(sheet) {
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var map = {};
+  headers.forEach(function (header, index) {
+    if (header) map[String(header).trim()] = index + 1;
+  });
+  RSVP_CONFIG.CONFIRMED_HEADERS.forEach(function (header) {
+    if (!map[header]) throw new Error("Missing confirmed-guest column: " + header);
+  });
+  return map;
+}
+
+function formatConfirmedSheet_(sheet) {
+  var columns = getConfirmedHeaderMap_(sheet);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, sheet.getLastColumn())
+    .setBackground("#b61b21")
+    .setFontColor("#fff8f1")
+    .setFontWeight("bold")
+    .setHorizontalAlignment("center");
+  sheet.getRange(1, columns.submittedAt, sheet.getMaxRows(), 1)
+    .setNumberFormat("yyyy-mm-dd hh:mm:ss");
+  sheet.setColumnWidth(columns.partyNameEnglish, 180);
+  sheet.setColumnWidth(columns.partyNameChinese, 160);
+  sheet.setColumnWidth(columns.guestName, 180);
+  sheet.setColumnWidth(columns.dietary, 180);
+  sheet.setColumnWidth(columns.notes, 240);
+}
+
+function syncConfirmedGuests_(spreadsheet, guestSide, token, sourceRow, sourceColumns, attending, guestNames, teaAttendance, dietary, notes, submittedAt) {
+  var sheet = spreadsheet.getSheetByName(RSVP_CONFIG.CONFIRMED_SHEET_NAME)
+    || spreadsheet.insertSheet(RSVP_CONFIG.CONFIRMED_SHEET_NAME);
+  ensureConfirmedHeaders_(sheet);
+  formatConfirmedSheet_(sheet);
+  removeConfirmedTokenRows_(sheet, token);
+
+  if (!attending || !guestNames.length) return;
+
+  var partyNameEnglish = clean_(sourceRow[sourceColumns.partyNameEnglish - 1], 120);
+  var partyNameChinese = clean_(sourceRow[sourceColumns.partyNameChinese - 1], 120);
+  var rows = [];
+  var guestIndex;
+  for (guestIndex = 0; guestIndex < guestNames.length; guestIndex += 1) {
+    rows.push([
+      token,
+      guestSide,
+      partyNameEnglish,
+      partyNameChinese,
+      guestNames[guestIndex],
+      teaAttendance,
+      dietary,
+      notes,
+      submittedAt
+    ]);
+  }
+  sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, RSVP_CONFIG.CONFIRMED_HEADERS.length)
+    .setValues(rows);
+}
+
+function removeConfirmedTokenRows_(sheet, token) {
+  if (sheet.getLastRow() < 2) return;
+  var columns = getConfirmedHeaderMap_(sheet);
+  var tokenValues = sheet.getRange(2, columns.token, sheet.getLastRow() - 1, 1).getDisplayValues();
+  var rowIndex;
+  for (rowIndex = tokenValues.length - 1; rowIndex >= 0; rowIndex -= 1) {
+    if (clean_(tokenValues[rowIndex][0], 100) === token) {
+      sheet.deleteRow(rowIndex + 2);
+    }
+  }
 }
 
 function createUniqueToken_(sheets) {

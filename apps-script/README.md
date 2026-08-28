@@ -1,6 +1,6 @@
 # Wedding RSVP backend
 
-This script connects the RSVP page to one private Google Sheets file containing two separate sheets/tabs: `Bride Guests` and `Groom Guests`. Each row is one invitation party.
+This script connects the RSVP page to one private Google Sheets file containing `Bride Guests`, `Groom Guests`, and an automatically maintained `Confirmed Guests` compilation sheet.
 
 ## Columns
 
@@ -20,6 +20,8 @@ The website stores response as only 'Yes' or 'No'. Chinese characters are suppor
 8. Copy the generated `invitationUrl` from each row when sending invitations.
 
 Running setup installs an authorized edit trigger. Tokens and invitation links then generate automatically when either guest sheet is updated.
+
+When a party submits `Yes`, `Confirmed Guests` receives one row per attending guest with the bride/groom side, party names, guest name, tea ceremony response, dietary requirements, notes, and submission time. A resubmission replaces that party's compiled rows. Changing the RSVP to `No` removes those rows from the compilation while preserving the original RSVP record.
 
 ## Deploy
 
