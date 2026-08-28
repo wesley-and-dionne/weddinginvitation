@@ -223,7 +223,18 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .information-grid h2 { margin: 0 0 7px; font: 400 1.5625rem "Literata", Georgia, serif; }
 .information-grid p { margin: 0; }
 .information-wide { grid-column: 1 / -1; text-align: center; }
-.home-button { width: min(430px, 94%); }
+.home-button {
+  width: min(24rem, 94%);
+  max-width: 100%;
+  border: 3px double var(--gold);
+  padding: .9em 1.15em;
+  background-image: none;
+  font-size: clamp(1.125rem, 4vw, 1.375rem);
+  line-height: 1.2;
+  letter-spacing: .035em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
 
 footer { width: min(600px, calc(100% - 60px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
 footer img { display: block; width: 100%; height: 48px; object-fit: cover; object-position: center; opacity: .62; }
@@ -315,18 +326,18 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   max-width: 620px;
   margin: 0 auto;
 }
-.guest-information-grid small {
-  display: block;
-  margin: 8px auto 0;
-  opacity: .68;
-}
 .guest-information-grid ul {
   max-width: 620px;
   margin: 0 auto;
   padding-left: 1.2em;
+  color: rgba(62, 38, 38, .82);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.65;
   text-align: left;
 }
-.guest-information-grid li + li { margin-top: 8px; }
+.guest-information-grid li + li { margin-top: 1.35em; }
+.guest-information-grid li::marker { color: var(--gold); font-size: .78em; }
 .information-section-knot {
   display: block;
   width: min(310px, 82%);
@@ -337,7 +348,6 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   opacity: .62;
 }
 .whatsapp-username { margin-top: 15px !important; }
-.whatsapp-username span { display: block; opacity: .7; }
 .whatsapp-username a {
   display: inline-block;
   margin-top: 2px;
@@ -350,6 +360,7 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 .express-interest-button {
   display: inline-block;
   min-width: 210px;
+  max-width: 100%;
   margin-top: 22px;
   border: 3px double var(--gold);
   padding: 10px 24px;
@@ -357,8 +368,11 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   background: var(--red);
   font-family: "Noto Serif SC", Georgia, serif;
   font-size: 1.125rem;
+  line-height: 1.2;
   letter-spacing: .06em;
   text-decoration: none;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 .express-interest-button:hover,
 .express-interest-button:focus-visible {
@@ -407,6 +421,7 @@ html[lang="zh"] .whatsapp-username a {
   .motif-lower-left { width: 210px; left: -125px; bottom: 95px; opacity: .16; }
   .motif-petals { right: 2px; top: 310px; opacity: .16; }
   .ornate-button { font-size: 1.5625rem; }
+  .home-button { font-size: clamp(1.0625rem, 5vw, 1.25rem); letter-spacing: .02em; }
   .information-grid h2 { font-size: 1.4375rem; }
   html[lang="zh"] h1 { font-size: 2.375rem; }
   html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.0625rem; text-wrap: balance; }
