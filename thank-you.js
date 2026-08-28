@@ -15,6 +15,7 @@ const translations = {
     expressInterest: "Express interest",
     contactTitle: "Contact",
     contactCopy: "For additional assistance, please contact the couple.",
+    contactName: "Dionne:",
     returnWebsite: "Return to wedding website",
   },
   zh: {
@@ -33,6 +34,7 @@ const translations = {
     expressInterest: "登记住宿意向",
     contactTitle: "联系我们",
     contactCopy: "如需其他协助，请联系新人。",
+    contactName: "Dionne：",
     returnWebsite: "返回婚礼网站",
   },
 };

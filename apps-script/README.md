@@ -1,22 +1,25 @@
 # Wedding RSVP backend
 
-This script connects the RSVP page to a private Google Sheet. Each row is one invitation party.
+This script connects the RSVP page to one private Google Sheets file containing two separate sheets/tabs: `Bride Guests` and `Groom Guests`. Each row is one invitation party.
 
 ## Columns
 
-'token', 'partyNameEnglish', 'partyNameChinese', 'preferredLanguage', 'seats', 'teaInvited', 'invitationUrl', 'response', 'attendeeCount', 'guestOne', 'guestTwo', 'teaAttendance', 'dietary', 'notes', 'responseLanguage', 'submittedAt', 'lastUpdated'
+'token', 'partyNameEnglish', 'partyNameChinese', 'preferredLanguage', 'seats', 'teaInvited', 'invitationUrl', 'response', 'attendeeCount', 'guestOne', 'guestTwo', 'guestThree', 'guestFour', 'guestFive', 'teaAttendance', 'dietary', 'notes', 'responseLanguage', 'submittedAt', 'lastUpdated'
 
 The website stores response as only 'Yes' or 'No'. Chinese characters are supported in party names, guest names, dietary requirements, and notes.
 
 ## First setup
 
-1. Create a private Google Sheet.
+1. Open the private wedding guest-list Google Sheets file.
 2. Open **Extensions → Apps Script**.
 3. Paste 'Code.gs' into the Apps Script editor and save.
-4. Return to the Sheet, refresh it, then choose **Wedding RSVP → Set up guest list**.
-5. Add one invitation party per row. Use a different row for each family or guest group.
-6. Use 'preferredLanguage' as 'en' or 'zh', set the reserved 'seats', and tick 'teaInvited' where applicable.
-7. Copy the generated 'invitationUrl' from each row when sending invitations.
+4. Return to the Sheet, refresh it, then choose **Wedding RSVP → Set up bride and groom sheets**.
+5. The script creates and formats separate `Bride Guests` and `Groom Guests` sheets inside the same file.
+6. Add each invitation party to the appropriate sheet. Use a different row for each family or guest group.
+7. Type `zh` in `preferredLanguage` for Chinese and `en` for English. Set `seats` from 1 to 5, and tick `teaInvited` where applicable.
+8. Copy the generated `invitationUrl` from each row when sending invitations.
+
+Running setup installs an authorized edit trigger. Tokens and invitation links then generate automatically when either guest sheet is updated.
 
 ## Deploy
 

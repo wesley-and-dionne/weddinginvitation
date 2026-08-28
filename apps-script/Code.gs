@@ -1,8 +1,8 @@
-const RSVP_CONFIG = {
-  SHEET_NAME: "Guests",
+var RSVP_CONFIG = {
+  SHEET_NAMES: ["Bride Guests", "Groom Guests"],
   WEBSITE_URL: "https://wesley-and-dionne.github.io/weddinginvitation/",
   PROPERTY_NAME: "WEDDING_RSVP_SPREADSHEET_ID",
-  MAX_SEATS: 10,
+  MAX_SEATS: 5,
   MAX_NOTE_LENGTH: 500,
   HEADERS: [
     "token",
@@ -16,74 +16,86 @@ const RSVP_CONFIG = {
     "attendeeCount",
     "guestOne",
     "guestTwo",
+    "guestThree",
+    "guestFour",
+    "guestFive",
     "teaAttendance",
     "dietary",
     "notes",
     "responseLanguage",
     "submittedAt",
-    "lastUpdated",
-  ],
+    "lastUpdated"
+  ]
 };
 
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu("Wedding RSVP")
-    .addItem("Set up guest list", "setupWeddingRsvp")
+    .addItem("Set up bride and groom sheets", "setupWeddingRsvp")
     .addItem("Generate missing links", "generateMissingTokensAndLinks")
     .addToUi();
 }
 
 function setupWeddingRsvp() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   if (!spreadsheet) throw new Error("Open this script from the guest-list spreadsheet.");
 
   PropertiesService.getScriptProperties().setProperty(
     RSVP_CONFIG.PROPERTY_NAME,
-    spreadsheet.getId(),
+    spreadsheet.getId()
   );
 
-  const sheet = spreadsheet.getSheetByName(RSVP_CONFIG.SHEET_NAME)
-    || spreadsheet.insertSheet(RSVP_CONFIG.SHEET_NAME);
-  ensureHeaders_(sheet);
-  formatGuestSheet_(sheet);
+  RSVP_CONFIG.SHEET_NAMES.forEach(function (name) {
+    var sheet = spreadsheet.getSheetByName(name) || spreadsheet.insertSheet(name);
+    ensureHeaders_(sheet);
+    formatGuestSheet_(sheet);
+  });
+  installGuestEditTrigger_(spreadsheet);
   generateMissingTokensAndLinks();
-  spreadsheet.toast("Guest list ready. Add one invitation party per row.", "Wedding RSVP", 6);
+  spreadsheet.toast("Bride and groom guest sheets are ready.", "Wedding RSVP", 6);
 }
 
 function generateMissingTokensAndLinks() {
-  const sheet = getGuestSheet_();
-  const columns = getHeaderMap_(sheet);
+  var sheets = getGuestSheets_();
+  var sheetIndex;
+  for (sheetIndex = 0; sheetIndex < sheets.length; sheetIndex += 1) {
+    generateMissingTokensAndLinksForSheet_(sheets[sheetIndex], sheets);
+  }
+}
+
+function generateMissingTokensAndLinksForSheet_(sheet, allSheets) {
+  var columns = getHeaderMap_(sheet);
   if (sheet.getLastRow() < 2) return;
 
-  const width = sheet.getLastColumn();
-  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, width).getValues();
-  let changed = false;
+  var width = sheet.getLastColumn();
+  var rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, width).getValues();
+  var changed = false;
 
-  rows.forEach((row) => {
+  rows.forEach(function (row) {
     if (!clean_(row[columns.partyNameEnglish - 1], 120)
       && !clean_(row[columns.partyNameChinese - 1], 120)) return;
 
-    let token = clean_(row[columns.token - 1], 100);
+    var token = clean_(row[columns.token - 1], 100);
     if (!token) {
-      token = createUniqueToken_(sheet, columns.token);
+      token = createUniqueToken_(allSheets);
       row[columns.token - 1] = token;
       changed = true;
     }
 
-    let language = clean_(row[columns.preferredLanguage - 1], 2).toLowerCase();
+    var language = clean_(row[columns.preferredLanguage - 1], 2).toLowerCase();
     if (language !== "zh") language = "en";
     if (row[columns.preferredLanguage - 1] !== language) {
       row[columns.preferredLanguage - 1] = language;
       changed = true;
     }
 
-    const seats = boundedSeats_(row[columns.seats - 1]);
+    var seats = boundedSeats_(row[columns.seats - 1]);
     if (row[columns.seats - 1] !== seats) {
       row[columns.seats - 1] = seats;
       changed = true;
     }
 
-    const url = invitationUrl_(token, language);
+    var url = invitationUrl_(token, language);
     if (row[columns.invitationUrl - 1] !== url) {
       row[columns.invitationUrl - 1] = url;
       changed = true;
@@ -93,53 +105,70 @@ function generateMissingTokensAndLinks() {
   if (changed) sheet.getRange(2, 1, rows.length, width).setValues(rows);
 }
 
-function onEdit(event) {
+function handleGuestEdit_(event) {
   if (!event || !event.range || event.range.getRow() < 2) return;
-  const sheet = event.range.getSheet();
-  if (sheet.getName() !== RSVP_CONFIG.SHEET_NAME) return;
+  var sheet = event.range.getSheet();
+  if (RSVP_CONFIG.SHEET_NAMES.indexOf(sheet.getName()) === -1) return;
 
-  const columns = getHeaderMap_(sheet);
-  const watched = [
+  var columns = getHeaderMap_(sheet);
+  var watched = [
     columns.partyNameEnglish,
     columns.partyNameChinese,
     columns.preferredLanguage,
-    columns.seats,
+    columns.seats
   ];
-  const first = event.range.getColumn();
-  const last = event.range.getLastColumn();
-  if (!watched.some((column) => column >= first && column <= last)) return;
+  var first = event.range.getColumn();
+  var last = event.range.getLastColumn();
+  if (!watched.some(function (column) {
+    return column >= first && column <= last;
+  })) return;
 
-  const row = event.range.getRow();
-  const english = clean_(sheet.getRange(row, columns.partyNameEnglish).getValue(), 120);
-  const chinese = clean_(sheet.getRange(row, columns.partyNameChinese).getValue(), 120);
+  var row = event.range.getRow();
+  var english = clean_(sheet.getRange(row, columns.partyNameEnglish).getValue(), 120);
+  var chinese = clean_(sheet.getRange(row, columns.partyNameChinese).getValue(), 120);
   if (!english && !chinese) return;
 
-  let token = clean_(sheet.getRange(row, columns.token).getValue(), 100);
+  var token = clean_(sheet.getRange(row, columns.token).getValue(), 100);
   if (!token) {
-    token = createUniqueToken_(sheet, columns.token);
+    token = createUniqueToken_(getGuestSheetsFromSpreadsheet_(sheet.getParent()));
     sheet.getRange(row, columns.token).setValue(token);
   }
 
-  let language = clean_(sheet.getRange(row, columns.preferredLanguage).getValue(), 2).toLowerCase();
+  var language = clean_(sheet.getRange(row, columns.preferredLanguage).getValue(), 2).toLowerCase();
   if (language !== "zh") language = "en";
   sheet.getRange(row, columns.preferredLanguage).setValue(language);
   sheet.getRange(row, columns.seats).setValue(boundedSeats_(sheet.getRange(row, columns.seats).getValue()));
   sheet.getRange(row, columns.invitationUrl).setValue(invitationUrl_(token, language));
 }
 
+function installGuestEditTrigger_(spreadsheet) {
+  var triggers = ScriptApp.getProjectTriggers();
+  var triggerIndex;
+  for (triggerIndex = 0; triggerIndex < triggers.length; triggerIndex += 1) {
+    if (triggers[triggerIndex].getHandlerFunction() === "handleGuestEdit_") {
+      ScriptApp.deleteTrigger(triggers[triggerIndex]);
+    }
+  }
+
+  ScriptApp.newTrigger("handleGuestEdit_")
+    .forSpreadsheet(spreadsheet)
+    .onEdit()
+    .create();
+}
+
 function doGet(event) {
   try {
-    const action = clean_(event && event.parameter && event.parameter.action, 20);
+    var action = clean_(event && event.parameter && event.parameter.action, 20);
     if (action === "health") return json_({ success: true, service: "wedding-rsvp" });
     if (action !== "lookup") return json_({ success: false, message: "Unsupported request." });
 
-    const token = validToken_(event.parameter.token);
-    const sheet = getGuestSheet_();
-    const columns = getHeaderMap_(sheet);
-    const rowNumber = findRow_(sheet, columns.token, token);
-    if (!rowNumber) return json_({ success: false, message: "Invitation not found." });
+    var token = validToken_(event.parameter.token);
+    var guest = findGuestByToken_(token);
+    if (!guest) return json_({ success: false, message: "Invitation not found." });
 
-    const row = sheet.getRange(rowNumber, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var sheet = guest.sheet;
+    var columns = guest.columns;
+    var row = guest.row;
     return json_({
       success: true,
       invitation: {
@@ -148,8 +177,8 @@ function doGet(event) {
         partyNameChinese: clean_(row[columns.partyNameChinese - 1], 120),
         preferredLanguage: clean_(row[columns.preferredLanguage - 1], 2).toLowerCase() === "zh" ? "zh" : "en",
         seats: boundedSeats_(row[columns.seats - 1]),
-        teaInvited: boolean_(row[columns.teaInvited - 1]),
-      },
+        teaInvited: boolean_(row[columns.teaInvited - 1])
+      }
     });
   } catch (error) {
     console.error(error);
@@ -158,44 +187,50 @@ function doGet(event) {
 }
 
 function doPost(event) {
-  const lock = LockService.getScriptLock();
+  var lock = LockService.getScriptLock();
   try {
     lock.waitLock(10000);
-    const payload = JSON.parse((event && event.postData && event.postData.contents) || "{}");
+    var payload = JSON.parse((event && event.postData && event.postData.contents) || "{}");
     if (payload.action !== "submit") throw new Error("Unsupported request.");
 
-    const token = validToken_(payload.token);
-    const response = payload.response === "Yes" || payload.response === "No" ? payload.response : "";
+    var token = validToken_(payload.token);
+    var response = payload.response === "Yes" || payload.response === "No" ? payload.response : "";
     if (!response) throw new Error("Please select Yes or No.");
 
-    const sheet = getGuestSheet_();
-    const columns = getHeaderMap_(sheet);
-    const rowNumber = findRow_(sheet, columns.token, token);
-    if (!rowNumber) throw new Error("Invitation not found.");
+    var guest = findGuestByToken_(token);
+    if (!guest) throw new Error("Invitation not found.");
 
-    const row = sheet.getRange(rowNumber, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const reservedSeats = boundedSeats_(row[columns.seats - 1]);
-    const attending = response === "Yes";
-    const attendeeCount = attending ? Number(payload.attendeeCount) : 0;
-    if (attending && (!Number.isInteger(attendeeCount) || attendeeCount < 1 || attendeeCount > reservedSeats)) {
+    var sheet = guest.sheet;
+    var columns = guest.columns;
+    var rowNumber = guest.rowNumber;
+    var row = guest.row;
+    var reservedSeats = boundedSeats_(row[columns.seats - 1]);
+    var attending = response === "Yes";
+    var attendeeCount = attending ? Number(payload.attendeeCount) : 0;
+    if (attending && (attendeeCount % 1 !== 0 || attendeeCount < 1 || attendeeCount > reservedSeats)) {
       throw new Error("The number attending exceeds the seats reserved for this invitation.");
     }
 
-    const guestOne = attending ? clean_(payload.guestOne, 120) : "";
-    const guestTwo = attending && attendeeCount > 1 ? clean_(payload.guestTwo, 120) : "";
-    if (attending && !guestOne) throw new Error("Please enter the first guest's name.");
-    if (attending && attendeeCount > 1 && !guestTwo) throw new Error("Please enter the second guest's name.");
+    var guestHeaders = ["guestOne", "guestTwo", "guestThree", "guestFour", "guestFive"];
+    var guestNames = [];
+    var guestIndex;
+    for (guestIndex = 0; guestIndex < attendeeCount; guestIndex += 1) {
+      var guestName = clean_(payload[guestHeaders[guestIndex]], 120);
+      if (!guestName) throw new Error("Please enter every attending guest's full name.");
+      guestNames.push(guestName);
+    }
 
-    const teaInvited = boolean_(row[columns.teaInvited - 1]);
-    const teaAttendance = attending && teaInvited
+    var teaInvited = boolean_(row[columns.teaInvited - 1]);
+    var teaAttendance = attending && teaInvited
       ? payload.teaAttendance === "yes" ? "Yes" : "No"
       : "";
-    const now = new Date();
+    var now = new Date();
 
     set_(sheet, rowNumber, columns, "response", response);
     set_(sheet, rowNumber, columns, "attendeeCount", attendeeCount);
-    set_(sheet, rowNumber, columns, "guestOne", guestOne);
-    set_(sheet, rowNumber, columns, "guestTwo", guestTwo);
+    for (guestIndex = 0; guestIndex < guestHeaders.length; guestIndex += 1) {
+      set_(sheet, rowNumber, columns, guestHeaders[guestIndex], guestNames[guestIndex] || "");
+    }
     set_(sheet, rowNumber, columns, "teaAttendance", teaAttendance);
     set_(sheet, rowNumber, columns, "dietary", attending ? clean_(payload.dietary, RSVP_CONFIG.MAX_NOTE_LENGTH) : "");
     set_(sheet, rowNumber, columns, "notes", attending ? clean_(payload.notes, RSVP_CONFIG.MAX_NOTE_LENGTH) : "");
@@ -212,41 +247,71 @@ function doPost(event) {
   }
 }
 
-function getGuestSheet_() {
-  const id = PropertiesService.getScriptProperties().getProperty(RSVP_CONFIG.PROPERTY_NAME);
-  if (!id) throw new Error("Run Set up guest list before deploying the backend.");
-  const sheet = SpreadsheetApp.openById(id).getSheetByName(RSVP_CONFIG.SHEET_NAME);
-  if (!sheet) throw new Error("The Guests sheet is missing.");
-  ensureHeaders_(sheet);
-  return sheet;
+function getGuestSheets_() {
+  var id = PropertiesService.getScriptProperties().getProperty(RSVP_CONFIG.PROPERTY_NAME);
+  if (!id) throw new Error("Run Set up bride and groom sheets before deploying the backend.");
+  var spreadsheet = SpreadsheetApp.openById(id);
+  return getGuestSheetsFromSpreadsheet_(spreadsheet);
+}
+
+function getGuestSheetsFromSpreadsheet_(spreadsheet) {
+  var sheets = RSVP_CONFIG.SHEET_NAMES.map(function (name) {
+    var sheet = spreadsheet.getSheetByName(name);
+    if (!sheet) throw new Error("The " + name + " sheet is missing.");
+    return sheet;
+  });
+  sheets.forEach(function (sheet) {
+    ensureHeaders_(sheet);
+  });
+  return sheets;
+}
+
+function findGuestByToken_(token) {
+  var sheets = getGuestSheets_();
+  for (var index = 0; index < sheets.length; index += 1) {
+    var sheet = sheets[index];
+    var columns = getHeaderMap_(sheet);
+    var rowNumber = findRow_(sheet, columns.token, token);
+    if (rowNumber) {
+      return {
+        sheet: sheet,
+        columns: columns,
+        rowNumber: rowNumber,
+        row: sheet.getRange(rowNumber, 1, 1, sheet.getLastColumn()).getValues()[0]
+      };
+    }
+  }
+  return null;
 }
 
 function ensureHeaders_(sheet) {
-  const width = Math.max(sheet.getLastColumn(), 1);
-  const existing = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
-  if (!existing.some((value) => value)) {
+  var width = Math.max(sheet.getLastColumn(), 1);
+  var existing = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
+  if (!existing.some(function (value) { return Boolean(value); })) {
     sheet.getRange(1, 1, 1, RSVP_CONFIG.HEADERS.length).setValues([RSVP_CONFIG.HEADERS]);
     return;
   }
 
-  const missing = RSVP_CONFIG.HEADERS.filter((header) => !existing.includes(header));
+  var missing = RSVP_CONFIG.HEADERS.filter(function (header) {
+    return existing.indexOf(header) === -1;
+  });
   if (missing.length) sheet.getRange(1, width + 1, 1, missing.length).setValues([missing]);
 }
 
 function getHeaderMap_(sheet) {
-  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
-  const map = {};
-  headers.forEach((header, index) => {
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var map = {};
+  headers.forEach(function (header, index) {
     if (header) map[String(header).trim()] = index + 1;
   });
-  RSVP_CONFIG.HEADERS.forEach((header) => {
+  RSVP_CONFIG.HEADERS.forEach(function (header) {
     if (!map[header]) throw new Error("Missing guest-list column: " + header);
   });
   return map;
 }
 
 function formatGuestSheet_(sheet) {
-  const columns = getHeaderMap_(sheet);
+  var columns = getHeaderMap_(sheet);
   sheet.setFrozenRows(1);
   sheet.getRange(1, 1, 1, sheet.getLastColumn())
     .setBackground("#b61b21")
@@ -262,17 +327,20 @@ function formatGuestSheet_(sheet) {
   sheet.setColumnWidth(columns.notes, 240);
 }
 
-function createUniqueToken_(sheet, tokenColumn) {
-  let token;
+function createUniqueToken_(sheets) {
+  var token;
   do {
     token = Utilities.getUuid().replace(/-/g, "");
-  } while (findRow_(sheet, tokenColumn, token));
+  } while (sheets.some(function (sheet) {
+    var columns = getHeaderMap_(sheet);
+    return findRow_(sheet, columns.token, token);
+  }));
   return token;
 }
 
 function findRow_(sheet, tokenColumn, token) {
   if (sheet.getLastRow() < 2) return 0;
-  const match = sheet.getRange(2, tokenColumn, sheet.getLastRow() - 1, 1)
+  var match = sheet.getRange(2, tokenColumn, sheet.getLastRow() - 1, 1)
     .createTextFinder(token)
     .matchEntireCell(true)
     .findNext();
@@ -285,13 +353,13 @@ function invitationUrl_(token, language) {
 }
 
 function boundedSeats_(value) {
-  let seats = Number(value);
-  if (!Number.isInteger(seats) || seats < 1) seats = 1;
+  var seats = Number(value);
+  if (seats % 1 !== 0 || seats < 1) seats = 1;
   return Math.min(seats, RSVP_CONFIG.MAX_SEATS);
 }
 
 function validToken_(value) {
-  const token = clean_(value, 100);
+  var token = clean_(value, 100);
   if (!/^[A-Za-z0-9_-]{8,100}$/.test(token)) throw new Error("Invalid invitation link.");
   return token;
 }

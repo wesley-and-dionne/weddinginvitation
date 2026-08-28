@@ -331,10 +331,10 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   max-width: 620px;
   margin: 0 auto;
   padding-left: 1.2em;
-  color: rgba(62, 38, 38, .82);
-  font-size: 1.25rem;
+  color: var(--ink);
+  font-size: inherit;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.55;
   text-align: left;
 }
 .guest-information-grid li + li { margin-top: 1.35em; }
@@ -348,14 +348,15 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   object-position: center;
   opacity: .62;
 }
-.whatsapp-username { margin-top: 15px !important; }
+.whatsapp-username {
+  margin-top: 15px !important;
+  font-size: inherit;
+}
 .whatsapp-username a {
-  display: inline-block;
-  margin-top: 2px;
   color: var(--red);
   font-family: "Noto Serif SC", serif;
-  font-size: 1.4375rem;
-  font-weight: 500;
+  font-size: 1em;
+  font-weight: 400;
   text-underline-offset: .2em;
 }
 .express-interest-button {

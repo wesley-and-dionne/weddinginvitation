@@ -19,6 +19,9 @@ const translations = {
     unableAttend: "Unable to attend",
     guestOne: "Guest 1 full name",
     guestTwo: "Guest 2 full name",
+    guestThree: "Guest 3 full name",
+    guestFour: "Guest 4 full name",
+    guestFive: "Guest 5 full name",
     dietary: "Dietary requirements",
     optional: "(optional)",
     notes: "Notes",
@@ -49,6 +52,9 @@ const translations = {
     unableAttend: "无法出席",
     guestOne: "宾客一姓名",
     guestTwo: "宾客二姓名",
+    guestThree: "宾客三姓名",
+    guestFour: "宾客四姓名",
+    guestFive: "宾客五姓名",
     dietary: "饮食需求",
     optional: "（选填）",
     notes: "留言",
@@ -97,8 +103,8 @@ const lookupIntro = document.querySelector("#lookup-intro");
 const linkHelp = document.querySelector("#link-help");
 const submitStatus = document.querySelector("#submit-status");
 const attendeeCount = document.querySelector("#attendee-count");
-const guestTwoField = document.querySelector("#guest-two-field");
-const guestTwo = document.querySelector("#guest-two");
+const guestNameFields = Array.from(document.querySelectorAll(".guest-name-field"));
+const guestNameInputs = guestNameFields.map((field) => field.querySelector("input"));
 const teaField = document.querySelector("#tea-field");
 const attendanceDetails = document.querySelector("#attendance-details");
 
@@ -203,16 +209,13 @@ const updateGuestFields = () => {
   const selected = document.querySelector('input[name="attendance"]:checked');
   const attending = selected?.value === "yes";
   attendanceDetails.classList.toggle("hidden", !attending);
-  document.querySelector("#guest-one").required = attending;
+  const count = attending ? Number(attendeeCount.value) : 0;
 
-  if (!attending) {
-    guestTwo.required = false;
-    return;
-  }
-
-  const count = Number(attendeeCount.value);
-  guestTwoField.classList.toggle("hidden", count < 2);
-  guestTwo.required = count >= 2;
+  guestNameFields.forEach((field, index) => {
+    const visible = attending && index < count;
+    field.classList.toggle("hidden", !visible);
+    guestNameInputs[index].required = visible;
+  });
 };
 
 const loadInvitation = (rawInvitation) => {
@@ -286,7 +289,7 @@ responseForm.addEventListener("submit", async (event) => {
   const attending = selected.value === "yes";
   const count = attending ? Number(attendeeCount.value) : 0;
   const guestNames = attending
-    ? [document.querySelector("#guest-one").value, document.querySelector("#guest-two").value].filter(Boolean)
+    ? guestNameInputs.slice(0, count).map((input) => input.value.trim())
     : [];
 
   if (!currentInvitation.demo && !APPS_SCRIPT_URL) {
@@ -303,6 +306,9 @@ responseForm.addEventListener("submit", async (event) => {
       guestNames,
       guestOne: guestNames[0] || "",
       guestTwo: guestNames[1] || "",
+      guestThree: guestNames[2] || "",
+      guestFour: guestNames[3] || "",
+      guestFive: guestNames[4] || "",
       teaAttendance: attending && currentInvitation.teaInvited
         ? document.querySelector("#tea-attendance").value
         : "not-attending",
