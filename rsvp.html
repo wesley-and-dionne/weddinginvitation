@@ -7,6 +7,7 @@
     <title>RSVP | Wesley &amp; Dionne</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://script.google.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Literata:opsz,wght@7..72,400;7..72,500&amp;family=Ma+Shan+Zheng&amp;family=Noto+Serif+SC:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
@@ -34,10 +35,10 @@
         <h1 id="rsvp-heading" data-i18n="heading">Kindly RSVP</h1>
         <img class="heading-knot" src="assets/motif-knot.png" alt="" />
         <p class="deadline" data-i18n="deadline">Please respond by 1 February 2027.</p>
-        <p class="intro" data-i18n="lookupIntro">
-          Please open the personalised RSVP link sent with your invitation.
+        <p class="intro is-loading" id="lookup-intro" data-i18n="loadingInvitation">
+          Loading your invitation…
         </p>
-        <p class="personal-link-help" data-i18n="linkHelp">
+        <p class="personal-link-help hidden" id="link-help" data-i18n="linkHelp">
           If your link is not working, please contact the couple for assistance.
         </p>
         <p class="form-status" id="lookup-status" role="status"></p>

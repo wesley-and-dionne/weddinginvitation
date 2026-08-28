@@ -16,7 +16,7 @@ body {
   color: var(--ink);
   background: var(--cream);
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -89,7 +89,7 @@ button, input, select, textarea { font: inherit; }
 h1 {
   margin: 12px 0 0;
   font-family: "Literata", Georgia, serif;
-  font-size: clamp(42px, 7vw, 62px);
+  font-size: clamp(2.625rem, 7vw, 3.875rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -.04em;
@@ -105,8 +105,22 @@ h1 {
   opacity: .62;
 }
 
-.deadline { margin: 0 0 12px; font-size: 23px; font-weight: 600; }
-.intro { max-width: 470px; margin: 0 auto 28px; font-size: 20px; }
+.deadline { margin: 0 auto 12px; font-size: 1.4375rem; font-weight: 600; text-wrap: balance; }
+.intro { max-width: 470px; margin: 0 auto 28px; font-size: 1.25rem; text-wrap: balance; }
+.intro.is-loading::after {
+  content: "";
+  display: inline-block;
+  width: .65em;
+  height: .65em;
+  margin-left: .55em;
+  border: 1px solid rgba(182, 27, 33, .25);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  vertical-align: .02em;
+  animation: invitation-loading .8s linear infinite;
+}
+
+@keyframes invitation-loading { to { transform: rotate(360deg); } }
 
 #response-form { text-align: left; }
 
@@ -128,10 +142,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--red); }
 textarea { min-height: 72px; resize: vertical; }
 
 .form-status { min-height: 27px; margin: 10px 0 0; color: var(--red); text-align: center; }
-.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 17px; opacity: .72; }
+.personal-link-help { max-width: 430px; margin: 0 auto; font-size: 1.0625rem; opacity: .72; text-wrap: balance; }
 
 .eyebrow { margin: 10px 0 0; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
-.seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 20px; }
+.seat-note { margin: 0 auto 30px; color: var(--red); font-family: "Literata", serif; font-size: 1.25rem; text-wrap: balance; }
 
 fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 .attendance-fieldset { text-align: center; }
@@ -171,7 +185,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   text-align: center;
   text-decoration: none;
   font-family: var(--serif);
-  font-size: 30px;
+  font-size: 1.875rem;
   letter-spacing: .14em;
 }
 
@@ -191,7 +205,7 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
   text-decoration: underline;
 }
 
-.confirmation-message { margin: 0 0 30px; font-size: 22px; }
+.confirmation-message { margin: 0 0 30px; font-size: 1.375rem; }
 
 .information-grid {
   display: grid;
@@ -201,14 +215,14 @@ fieldset { margin: 0 0 26px; padding: 0; border: 0; }
 }
 
 .information-grid article { border-top: 1px solid rgba(214, 164, 84, .68); padding: 17px 18px; }
-.information-grid h2 { margin: 0 0 7px; font: 400 25px "Literata", Georgia, serif; }
+.information-grid h2 { margin: 0 0 7px; font: 400 1.5625rem "Literata", Georgia, serif; }
 .information-grid p { margin: 0; }
 .information-wide { grid-column: 1 / -1; text-align: center; }
 .home-button { width: min(430px, 94%); }
 
 footer { width: min(600px, calc(100% - 60px)); margin: 0 auto; padding: 0 20px 80px; text-align: center; }
 footer img { display: block; width: 100%; height: 48px; object-fit: cover; object-position: center; opacity: .62; }
-footer span { color: var(--red); font-family: "Noto Serif SC", serif; font-size: 26px; }
+footer span { color: var(--red); font-family: "Noto Serif SC", serif; font-size: 1.625rem; }
 
 html[lang="zh"] body { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; }
 html[lang="zh"] h1,
@@ -222,7 +236,7 @@ html[lang="zh"] .language-toggle { font-family: "Noto Serif SC", serif; }
 html[lang="zh"] label,
 html[lang="zh"] legend,
 html[lang="zh"] .deadline { font-weight: 400; }
-html[lang="zh"] .seat-note { white-space: nowrap; }
+html[lang="zh"] .seat-note { text-wrap: balance; }
 
 .thank-you-page {
   display: grid;
@@ -240,28 +254,28 @@ html[lang="zh"] .seat-note { white-space: nowrap; }
 .thank-you-message {
   max-width: 470px;
   margin: 0 auto;
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 
-.thank-you-shell .ornate-button { font-size: 22px; letter-spacing: .08em; }
+.thank-you-shell .ornate-button { font-size: 1.375rem; letter-spacing: .08em; }
 
 @media (max-width: 640px) {
-  body { font-size: 18px; }
+  body { font-size: 1.125rem; }
   .rsvp-page { padding: 26px 18px 72px; }
   .language-toggle {
     top: 12px;
     right: 10px;
     padding: 7px 9px;
     background: rgba(255, 242, 231, .68);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
   }
   .language-toggle span { opacity: 1; }
   .back-link { display: inline-block; margin-top: 30px; }
   .rsvp-shell { margin-top: 12px; }
-  h1 { font-size: 36px; }
-  .deadline { font-size: 20px; }
-  .intro { font-size: 19px; }
+  h1 { font-size: 2.25rem; }
+  .deadline { font-size: 1.25rem; }
+  .intro { font-size: 1.1875rem; }
   .radio-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .form-grid, .information-grid { grid-template-columns: 1fr; }
   .field-full, .information-wide { grid-column: auto; }
@@ -269,14 +283,15 @@ html[lang="zh"] .seat-note { white-space: nowrap; }
   .motif-right { width: 250px; right: -130px; top: 390px; opacity: .2; }
   .motif-lower-left { width: 210px; left: -125px; bottom: 95px; opacity: .16; }
   .motif-petals { right: 2px; top: 310px; opacity: .16; }
-  .ornate-button { font-size: 25px; }
-  .information-grid h2 { font-size: 23px; }
-  html[lang="zh"] h1 { font-size: 38px; }
-  html[lang="zh"] .deadline { font-size: 17px; white-space: nowrap; }
-  html[lang="zh"] .seat-note { font-size: 18px; }
+  .ornate-button { font-size: 1.5625rem; }
+  .information-grid h2 { font-size: 1.4375rem; }
+  html[lang="zh"] h1 { font-size: 2.375rem; }
+  html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.0625rem; text-wrap: balance; }
+  html[lang="zh"] .seat-note { max-width: 20rem; font-size: 1.125rem; text-wrap: balance; }
   .thank-you-page { padding-top: 76px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .intro.is-loading::after { animation: none; }
 }

@@ -5,6 +5,7 @@ const translations = {
     back: "← Wedding website",
     heading: "Kindly RSVP",
     deadline: "Please respond by 1 February 2027.",
+    loadingInvitation: "Loading your invitation…",
     lookupIntro: "Please use the personalised RSVP link included with your invitation.",
     linkHelp: "If the link is not working, please contact the couple for assistance.",
     invitationFound: "Your invitation",
@@ -34,6 +35,7 @@ const translations = {
     back: "← 返回婚礼网站",
     heading: "敬请回复",
     deadline: "敬请于2027年2月1日前回复。",
+    loadingInvitation: "正在载入您的邀请…",
     lookupIntro: "请使用喜帖中的专属回复链接。",
     linkHelp: "如链接无法使用，请联系新人协助。",
     invitationFound: "您的邀请",
@@ -91,6 +93,8 @@ const lookupView = document.querySelector("#lookup-view");
 const responseView = document.querySelector("#response-view");
 const responseForm = document.querySelector("#response-form");
 const lookupStatus = document.querySelector("#lookup-status");
+const lookupIntro = document.querySelector("#lookup-intro");
+const linkHelp = document.querySelector("#link-help");
 const submitStatus = document.querySelector("#submit-status");
 const attendeeCount = document.querySelector("#attendee-count");
 const guestTwoField = document.querySelector("#guest-two-field");
@@ -160,6 +164,14 @@ const showResponseView = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
+const showLookupMessage = (message) => {
+  lookupIntro.dataset.i18n = "lookupIntro";
+  lookupIntro.textContent = text("lookupIntro");
+  lookupIntro.classList.remove("is-loading");
+  linkHelp.classList.remove("hidden");
+  lookupStatus.textContent = message;
+};
+
 const updateGuestFields = () => {
   const selected = document.querySelector('input[name="attendance"]:checked');
   const attending = selected?.value === "yes";
@@ -196,9 +208,13 @@ const loadInvitation = (rawInvitation) => {
 const lookupInvitation = async (token) => {
   const normalizedToken = token.trim();
   lookupStatus.textContent = "";
+  lookupIntro.dataset.i18n = "loadingInvitation";
+  lookupIntro.textContent = text("loadingInvitation");
+  lookupIntro.classList.add("is-loading");
+  linkHelp.classList.add("hidden");
 
   if (!normalizedToken) {
-    lookupStatus.textContent = text("missingLink");
+    showLookupMessage(text("missingLink"));
     return;
   }
   if (demoInvitations[normalizedToken]) {
@@ -206,7 +222,7 @@ const lookupInvitation = async (token) => {
     return;
   }
   if (!APPS_SCRIPT_URL) {
-    lookupStatus.textContent = text("setupPending");
+    showLookupMessage(text("setupPending"));
     return;
   }
 
@@ -216,7 +232,7 @@ const lookupInvitation = async (token) => {
     if (!response.ok || !result.success) throw new Error(result.message || text("submitError"));
     loadInvitation(result.invitation);
   } catch (error) {
-    lookupStatus.textContent = error.message;
+    showLookupMessage(error.message);
   }
 };
 

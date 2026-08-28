@@ -59,6 +59,13 @@ const pageParams = new URLSearchParams(window.location.search);
 const invitationToken = pageParams.get("invite");
 let currentLanguage = pageParams.get("lang") === "zh" ? "zh" : "en";
 
+if (invitationToken) {
+  fetch(
+    "https://script.google.com/macros/s/AKfycby9h3CD5hsLTrhEoRWqzB1wac2lOFIbmAbenLcBP4x80i_0Z2UwJKvcV3H0sFgUxqc/exec?action=health",
+    { mode: "no-cors", cache: "no-store" },
+  ).catch(() => {});
+}
+
 const updateRsvpLink = () => {
   const rsvpParams = new URLSearchParams();
   if (invitationToken) rsvpParams.set("invite", invitationToken);
