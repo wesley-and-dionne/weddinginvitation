@@ -11,14 +11,19 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
   color: var(--ink);
   background: var(--cream);
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -119,7 +124,7 @@ main { overflow: hidden; }
   margin: 0;
   color: var(--ink);
   font-family: "Literata", Georgia, serif;
-  font-size: clamp(29px, 6.9vw, 102px);
+  font-size: clamp(1.8125rem, 6.9vw, 6.375rem);
   font-optical-sizing: auto;
   font-weight: 400;
   line-height: 1.05;
@@ -184,14 +189,14 @@ main { overflow: hidden; }
   margin: 0 0 4px;
   color: var(--gold);
   font-family: "Parisienne", cursive;
-  font-size: clamp(35px, 5vw, 54px);
+  font-size: clamp(2.1875rem, 5vw, 3.375rem);
 }
 
 h1, h2, p { margin-top: 0; }
 
 h1 {
   margin-bottom: 24px;
-  font-size: clamp(62px, 9vw, 104px);
+  font-size: clamp(3.875rem, 9vw, 6.5rem);
   font-weight: 500;
   line-height: .96;
   letter-spacing: -.035em;
@@ -227,7 +232,7 @@ h1 span { color: var(--red); font-weight: 400; }
 
 .wedding-date {
   margin: 22px 0 48px;
-  font-size: 27px;
+  font-size: 1.6875rem;
   letter-spacing: .28em;
 }
 
@@ -257,7 +262,7 @@ h1 span { color: var(--red); font-weight: 400; }
   margin-top: 38px;
   padding: 76px 18px;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .section-motif {
@@ -297,7 +302,7 @@ h1 span { color: var(--red); font-weight: 400; }
   margin-left: auto;
 }
 
-.section-knot { color: var(--gold); font-size: 30px; margin-bottom: 28px; }
+.section-knot { color: var(--gold); font-size: 1.875rem; margin-bottom: 28px; }
 
 .photo-moment {
   min-height: 590px;
@@ -362,7 +367,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .section-heading { text-align: center; margin-bottom: 54px; }
 .section-heading h2 {
   margin-bottom: 0;
-  font-size: clamp(46px, 6vw, 66px);
+  font-size: clamp(2.875rem, 6vw, 4.125rem);
   font-weight: 600;
   line-height: 1.05;
 }
@@ -446,8 +451,8 @@ h1 span { color: var(--red); font-weight: 400; }
   border-radius: 50%;
 }
 
-.timeline time { color: var(--red); font-size: 28px; font-weight: 600; }
-.timeline p { margin: 0; font-size: 26px; }
+.timeline time { color: var(--red); font-size: 1.75rem; font-weight: 600; }
+.timeline p { margin: 0; font-size: 1.625rem; }
 
 .itinerary-bottom-knot {
   display: block;
@@ -476,7 +481,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .venue h2 {
   margin: 0;
   font-family: "Literata", Georgia, serif;
-  font-size: clamp(40px, 5vw, 56px);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 400;
   letter-spacing: -.04em;
   line-height: 1.1;
@@ -484,11 +489,11 @@ h1 span { color: var(--red); font-weight: 400; }
 .venue p { margin: 0; }
 .venue p.venue-date {
   margin-bottom: 13px;
-  font-size: clamp(22px, 2.6vw, 28px);
+  font-size: clamp(1.375rem, 2.6vw, 1.75rem);
   font-weight: 600;
 }
-.venue-name { font-size: clamp(26px, 3vw, 33px); font-weight: 600; }
-.venue-room { font-size: clamp(20px, 2.4vw, 25px); }
+.venue-name { font-size: clamp(1.625rem, 3vw, 2.0625rem); font-weight: 600; }
+.venue-room { font-size: clamp(1.25rem, 2.4vw, 1.5625rem); }
 .venue-map {
   width: min(680px, 100%);
   margin: 34px auto 10px;
@@ -548,7 +553,7 @@ h1 span { color: var(--red); font-weight: 400; }
   column-gap: 4px;
 }
 .attire-copy { min-width: 0; }
-.attire-layout p { margin: 0; font-size: 24px; }
+.attire-layout p { margin: 0; font-size: 1.5rem; }
 .attire-layout p span,
 .attire-layout p em { display: block; }
 .attire-layout p em { font-style: normal; font-weight: 500; }
@@ -570,7 +575,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .tea-info .section-heading { margin-bottom: 14px; }
 .tea-info .section-heading h2 {
   font-family: "Literata", Georgia, serif;
-  font-size: clamp(38px, 5vw, 56px);
+  font-size: clamp(2.375rem, 5vw, 3.5rem);
   font-weight: 400;
   letter-spacing: -.04em;
 }
@@ -588,7 +593,7 @@ h1 span { color: var(--red); font-weight: 400; }
   z-index: 2;
   max-width: 440px;
   margin: 0 auto;
-  font-size: 23px;
+  font-size: 1.4375rem;
   line-height: 1.45;
 }
 .tea-motif {
@@ -610,7 +615,7 @@ h1 span { color: var(--red); font-weight: 400; }
 
 .rsvp-deadline {
   margin-bottom: 36px;
-  font-size: clamp(24px, 3vw, 31px);
+  font-size: clamp(1.5rem, 3vw, 1.9375rem);
   font-weight: 600;
 }
 
@@ -628,7 +633,7 @@ h1 span { color: var(--red); font-weight: 400; }
   border: 0;
   box-shadow: none;
   text-decoration: none;
-  font-size: 34px;
+  font-size: 2.125rem;
   letter-spacing: .22em;
   transition: background-color .2s ease, transform .2s ease;
 }
@@ -671,7 +676,7 @@ footer {
   margin: 0 auto;
   color: #b61b21;
   font-family: "Noto Serif SC", serif;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 600;
   line-height: 1;
 }
@@ -689,7 +694,7 @@ footer {
 }
 
 html[lang="zh"] body { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; }
-html[lang="zh"] .script-line { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-size: 30px; font-weight: 400; letter-spacing: .3em; }
+html[lang="zh"] .script-line { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-size: 1.875rem; font-weight: 400; letter-spacing: .3em; }
 html[lang="zh"] .itinerary .section-heading h2 {
   font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
   letter-spacing: .02em;
@@ -698,7 +703,7 @@ html[lang="zh"] .venue h2,
 html[lang="zh"] .attire .section-heading h2,
 html[lang="zh"] .tea-info .section-heading h2 {
   font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
-  font-size: clamp(46px, 6vw, 66px);
+  font-size: clamp(2.875rem, 6vw, 4.125rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: .02em;
@@ -723,14 +728,14 @@ html[lang="zh"] .rsvp-button {
 }
 html[lang="en"] .latin-text { font-family: "Noto Serif SC", serif; }
 .number-text { font-size: .86em; }
-html[lang="zh"] .venue-date { font-size: clamp(28px, 3.5vw, 36px); }
+html[lang="zh"] .venue-date { font-size: clamp(1.75rem, 3.5vw, 2.25rem); }
 .venue-date .number-text { font-weight: 600; }
-html[lang="zh"] .timeline time { font-size: 23px; }
-html[lang="zh"] .timeline p { font-size: 21px; }
+html[lang="zh"] .timeline time { font-size: 1.4375rem; }
+html[lang="zh"] .timeline p { font-size: 1.3125rem; }
 
 @media (max-width: 640px) {
-  body { font-size: 16px; }
-  .hero-names-live { font-size: clamp(34px, 10vw, 40px); }
+  body { font-size: 1rem; }
+  .hero-names-live { font-size: clamp(2.125rem, 10vw, 2.5rem); }
   .venue h2,
   .itinerary .section-heading h2,
   .attire .section-heading h2,
@@ -739,7 +744,7 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   html[lang="zh"] .itinerary .section-heading h2,
   html[lang="zh"] .attire .section-heading h2,
   html[lang="zh"] .tea-info .section-heading h2 {
-    font-size: clamp(30px, 8.5vw, 34px);
+    font-size: clamp(1.875rem, 8.5vw, 2.125rem);
     line-height: 1.12;
   }
   .language-toggle {
@@ -749,7 +754,7 @@ html[lang="zh"] .timeline p { font-size: 21px; }
     padding: 7px 9px;
     color: var(--ink);
     background: rgba(255, 242, 231, .68);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     opacity: 0;
     pointer-events: none;
@@ -762,12 +767,12 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .corner { width: 76px; height: 90px; }
   .double-happiness { width: 112px; height: 112px; }
   .peony { width: 180px; opacity: .28; }
-  .wedding-date { font-size: 20px; letter-spacing: .19em; }
-  .welcome { font-size: 18px; }
-  .welcome > p { font-size: 19px; line-height: 1.55; }
-  html[lang="zh"] .welcome > p { font-size: 24px; line-height: 1.65; }
+  .wedding-date { font-size: 1.25rem; letter-spacing: .19em; }
+  .welcome { font-size: 1.125rem; }
+  .welcome > p { font-size: 1.1875rem; line-height: 1.55; }
+  html[lang="zh"] .welcome > p { font-size: 1.5rem; line-height: 1.65; }
   html[lang="zh"] .rsvp-deadline {
-    font-size: 17px;
+    font-size: 1.0625rem;
     white-space: nowrap;
   }
   .welcome { margin-top: 24px; padding: 62px 14px; }
@@ -789,8 +794,8 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .itinerary-peony { right: -38%; top: 225px; width: 275px; opacity: .46; }
   .itinerary { padding-top: 55px; padding-bottom: 42px; }
   .timeline li { gap: 20px; }
-  .timeline time { font-size: 22px; }
-  .timeline p { font-size: 20px; }
+  .timeline time { font-size: 1.375rem; }
+  .timeline p { font-size: 1.25rem; }
   .venue { padding-top: 58px; padding-bottom: 30px; }
   .venue-floral { left: -150px; top: 18px; width: 270px; opacity: .20; }
   .itinerary { padding-top: 28px; }
@@ -799,16 +804,16 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .attire-illustration { width: 88px; height: 130px; }
   .attire-dress { width: 78px; transform: translateX(-8px); }
   .attire-copy { min-width: 135px; }
-  .venue p.venue-date { font-size: 21px; }
-  .venue-name { font-size: 23px; }
-  .venue-room { font-size: 19px; }
-  .attire-layout p { font-size: 19px; }
+  .venue p.venue-date { font-size: 1.3125rem; }
+  .venue-name { font-size: 1.4375rem; }
+  .venue-room { font-size: 1.1875rem; }
+  .attire-layout p { font-size: 1.1875rem; }
   .tea-info { min-height: 390px; padding: 64px 14px 76px; }
-  .tea-info > p { font-size: 19px; }
+  .tea-info > p { font-size: 1.1875rem; }
   html[lang="zh"] .attire-layout p,
-  html[lang="zh"] .tea-info > p { font-size: 22px; line-height: 1.6; }
-  html[lang="zh"] .venue p { font-size: 22px; }
-  html[lang="zh"] .venue p.venue-date { font-size: 25px; }
+  html[lang="zh"] .tea-info > p { font-size: 1.375rem; line-height: 1.6; }
+  html[lang="zh"] .venue p { font-size: 1.375rem; }
+  html[lang="zh"] .venue p.venue-date { font-size: 1.5625rem; }
   .tea-blossom { left: -72px; top: 150px; width: 155px; opacity: .28; }
   .tea-peony { right: -105px; top: 116px; width: 230px; opacity: .36; }
   .rsvp-section { padding-top: 115px; padding-bottom: 150px; }
