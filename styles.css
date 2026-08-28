@@ -489,6 +489,25 @@ h1 span { color: var(--red); font-weight: 400; }
 }
 .venue-name { font-size: clamp(26px, 3vw, 33px); font-weight: 600; }
 .venue-room { font-size: clamp(20px, 2.4vw, 25px); }
+.venue-map {
+  width: min(680px, 100%);
+  margin: 34px auto 10px;
+}
+.venue-map iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(201, 151, 62, .58);
+  filter: saturate(.72) sepia(.08);
+}
+.venue-map a {
+  display: inline-block;
+  margin-top: 11px;
+  color: var(--ink);
+  text-decoration-color: rgba(201, 151, 62, .8);
+  text-underline-offset: .22em;
+}
+.venue-map a:hover { color: var(--red); }
 .venue-heading-knot {
   display: block;
   width: 190px;
@@ -507,7 +526,7 @@ h1 span { color: var(--red); font-weight: 400; }
   object-position: center;
   opacity: .62;
 }
-.venue-bottom-knot { margin: 3px auto 0; }
+.venue-bottom-knot { margin: 8px auto 0; }
 .attire-bottom-knot { margin: 12px auto 0; }
 
 .attire { padding: 8px 0 150px; text-align: center; }
@@ -758,6 +777,8 @@ html[lang="zh"] .timeline p { font-size: 21px; }
   .photo-cloud-left { width: 185px; left: -125px; top: 4px; }
   .photo-petals { width: 48px; right: 2px; }
   .photo-peony { width: 175px; right: -68px; bottom: 8px; }
+  .venue-map { width: min(100%, 34rem); margin-top: 26px; }
+  .venue-map iframe { aspect-ratio: 4 / 3; }
   .photo-cloud-right { width: 185px; right: -90px; }
   .photo-moment .carousel { transform: translateY(30px); }
   .photo-moment { min-height: 400px; padding-block: 35px 70px; }

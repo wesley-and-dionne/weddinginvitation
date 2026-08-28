@@ -239,9 +239,7 @@ html[lang="zh"] .deadline { font-weight: 400; }
 html[lang="zh"] .seat-note { text-wrap: balance; }
 
 .thank-you-page {
-  display: grid;
   min-height: calc(100vh - 130px);
-  place-items: center;
   padding-top: 90px;
 }
 
@@ -258,6 +256,73 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 }
 
 .thank-you-shell .ornate-button { font-size: 1.375rem; letter-spacing: .08em; }
+
+.guest-information {
+  position: relative;
+  z-index: 2;
+  width: min(780px, 100%);
+  margin: 76px auto 0;
+  text-align: center;
+}
+.guest-information > h2 {
+  margin: 0;
+  font: 400 clamp(2rem, 5vw, 3rem) "Literata", Georgia, serif;
+  letter-spacing: -.035em;
+}
+.information-knot {
+  display: block;
+  width: 190px;
+  height: 48px;
+  margin: -2px auto 20px;
+  object-fit: cover;
+  object-position: center;
+  opacity: .62;
+}
+.guest-information-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 28px;
+  text-align: left;
+}
+.guest-information-grid article {
+  padding: 22px 6px 26px;
+  border-top: 1px solid rgba(214, 164, 84, .72);
+}
+.guest-information-grid h3 {
+  margin: 0 0 8px;
+  color: var(--red);
+  font: 500 1.4rem "Literata", Georgia, serif;
+}
+.guest-information-grid p { margin: 0; }
+.guest-information-grid small {
+  display: block;
+  margin-top: 8px;
+  opacity: .68;
+}
+.guest-information-grid ul { margin: 0; padding-left: 1.2em; }
+.guest-information-grid li + li { margin-top: 8px; }
+.whatsapp-username { margin-top: 15px !important; }
+.whatsapp-username span { display: block; opacity: .7; }
+.whatsapp-username strong {
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--red);
+  font-family: "Noto Serif SC", serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.thank-you-actions {
+  position: relative;
+  z-index: 2;
+  width: min(620px, 100%);
+  margin: 18px auto 0;
+}
+html[lang="zh"] .guest-information > h2,
+html[lang="zh"] .guest-information-grid h3 {
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
 
 @media (max-width: 640px) {
   body { font-size: 1.125rem; }
@@ -289,6 +354,9 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   html[lang="zh"] .deadline { max-width: 20rem; font-size: 1.0625rem; text-wrap: balance; }
   html[lang="zh"] .seat-note { max-width: 20rem; font-size: 1.125rem; text-wrap: balance; }
   .thank-you-page { padding-top: 76px; }
+  .guest-information { margin-top: 58px; }
+  .guest-information-grid { grid-template-columns: 1fr; gap: 0; }
+  .guest-information-grid article { padding-inline: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
