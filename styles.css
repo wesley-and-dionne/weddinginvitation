@@ -759,6 +759,10 @@ html[lang="zh"] .rsvp-button {
 html[lang="en"] .latin-text { font-family: "Noto Serif SC", serif; }
 .number-text { font-size: .86em; }
 .venue-date .number-text { font-weight: 600; }
+html[lang="zh"] .venue p.venue-date,
+html[lang="zh"] .venue p.venue-date .number-text {
+  font-weight: 600;
+}
 html[lang="zh"] .timeline time { font-size: 1.4375rem; }
 html[lang="zh"] .timeline p { font-size: 1.3125rem; }
 
