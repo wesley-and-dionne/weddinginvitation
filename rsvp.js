@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = "";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9h3CD5hsLTrhEoRWqzB1wac2lOFIbmAbenLcBP4x80i_0Z2UwJKvcV3H0sFgUxqc/exec";
 
 const translations = {
   en: {
