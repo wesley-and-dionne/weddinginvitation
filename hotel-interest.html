@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Register interest in the preferential EQ Kuala Lumpur room rate for Wesley and Dionne's wedding." />
-    <title>Accommodation Interest | Wesley &amp; Dionne</title>
+    <meta name="description" content="Preferential EQ Kuala Lumpur room rate and booking details for Wesley and Dionne's wedding guests." />
+    <title>Accommodation | Wesley &amp; Dionne</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://script.google.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Literata:opsz,wght@7..72,400;7..72,500&amp;family=Ma+Shan+Zheng&amp;family=Noto+Serif+SC:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
@@ -34,105 +33,33 @@
 
       <section class="rsvp-shell hotel-interest-shell" aria-labelledby="hotel-heading">
         <div class="double-happiness" aria-hidden="true">囍</div>
-        <h1 id="hotel-heading" data-i18n="heading">Accommodation Interest</h1>
+        <h1 id="hotel-heading" data-i18n="heading">Accommodation</h1>
         <img class="heading-knot" src="assets/optimized/motif-knot.png" width="512" height="316" alt="" />
 
         <div class="rate-card">
           <p class="rate-eyebrow" data-i18n="rateHeading">Preferential EQ room rate</p>
           <p class="room-rate" data-i18n="roomRate">RM780+ per room, per night</p>
           <p class="rate-note" data-i18n="rateNote">
-            Subject to availability. This form records your interest and does not confirm a booking.
+            Available to invited family and friends, subject to room availability.
           </p>
         </div>
 
-        <p class="hotel-intro" id="hotel-intro" data-i18n="loadingInvitation">Loading your invitation…</p>
-        <p class="privacy-note" data-i18n="privacyNote">
-          No passport, identification or payment details are required at this stage.
+        <p class="hotel-intro" data-i18n="bookingInstruction">
+          Enter the promotional code below when booking through the EQ website.
         </p>
 
-        <form class="hotel-form hidden" id="hotel-interest-form">
-          <div class="form-grid hotel-form-grid">
-            <div class="field field-full">
-              <label for="contact-name" data-i18n="contactName">Full name</label>
-              <input id="contact-name" name="contactName" autocomplete="name" maxlength="120" required />
-            </div>
+        <div class="promo-code-card">
+          <span data-i18n="promoCodeLabel">Promo code</span>
+          <strong>DIONNEWESLEY</strong>
+        </div>
 
-            <div class="field">
-              <label for="check-in" data-i18n="checkIn">Check-in date</label>
-              <input id="check-in" name="checkInDate" type="date" required />
-            </div>
+        <a class="ornate-button hotel-booking-button" href="https://www.eqkualalumpur.equatorial.com/rooms/" target="_blank" rel="noopener noreferrer" data-i18n="bookWithEq">
+          Book on the EQ website
+        </a>
 
-            <div class="field">
-              <label for="check-out" data-i18n="checkOut">Check-out date</label>
-              <input id="check-out" name="checkOutDate" type="date" required />
-            </div>
-
-            <div class="field">
-              <label for="phone" data-i18n="phone">Phone number</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="50" required />
-            </div>
-
-            <div class="field">
-              <label for="email" data-i18n="email">Email address</label>
-              <input id="email" name="email" type="email" autocomplete="email" maxlength="180" required />
-            </div>
-
-            <div class="field">
-              <label for="number-of-pax" data-i18n="numberOfPax">Number of guests</label>
-              <select id="number-of-pax" name="numberOfPax" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="number-of-rooms" data-i18n="numberOfRooms">Number of rooms</label>
-              <select id="number-of-rooms" name="numberOfRooms" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-
-            <div class="field field-full">
-              <label for="bed-preference" data-i18n="bedPreference">Bed preference</label>
-              <select id="bed-preference" name="bedPreference" aria-describedby="bed-note">
-                <option value="no-preference" data-i18n="noPreference">No preference</option>
-                <option value="king" data-i18n="kingBed">King bed</option>
-                <option value="twin" data-i18n="twinBeds">Twin beds</option>
-              </select>
-              <p class="field-note" id="bed-note" data-i18n="bedNote">Bed type is subject to hotel availability.</p>
-            </div>
-
-            <div class="field field-full">
-              <label for="special-requests">
-                <span data-i18n="specialRequests">Special requests or notes</span>
-                <span class="optional" data-i18n="optional">(optional)</span>
-              </label>
-              <textarea id="special-requests" name="specialRequests" maxlength="500"></textarea>
-            </div>
-          </div>
-
-          <button class="ornate-button hotel-submit-button" type="submit" data-i18n="submit">
-            Express interest
-          </button>
-          <p class="form-status" id="form-status" role="status"></p>
-        </form>
-
-        <section class="hotel-confirmation hidden" id="hotel-confirmation" aria-live="polite">
-          <h2 data-i18n="confirmationHeading">Interest received</h2>
-          <p data-i18n="confirmationCopy">
-            Thank you. Your accommodation interest has been recorded. We will share booking details once availability is confirmed.
-          </p>
-          <a class="ornate-button home-button" id="return-link" href="index.html" data-i18n="returnWebsite">
-            Return to wedding website
-          </a>
-        </section>
+        <p class="booking-note" data-i18n="bookingNote">
+          Reservations and payment are completed directly with the hotel.
+        </p>
       </section>
     </main>
 

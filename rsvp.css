@@ -412,6 +412,127 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
 .express-interest-button:focus-visible {
   background-color: var(--red-dark);
 }
+.hotel-promo-summary {
+  width: min(500px, 100%);
+  margin: 20px auto 0;
+  padding: 16px 18px;
+  border-top: 1px solid rgba(211, 160, 90, .62);
+  border-bottom: 1px solid rgba(211, 160, 90, .62);
+}
+.hotel-promo-summary p {
+  margin: 0 auto;
+}
+.hotel-promo-code {
+  margin-top: 8px !important;
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+}
+.hotel-promo-code strong {
+  display: inline-block;
+  margin-left: .3em;
+  font-weight: 600;
+  letter-spacing: .045em;
+}
+.food-guide {
+  position: relative;
+  margin: 66px auto 12px;
+  padding: 26px 6px 0;
+  text-align: center;
+}
+.food-guide-flower {
+  display: block;
+  width: 86px;
+  height: 70px;
+  margin: 0 auto 7px;
+  object-fit: contain;
+  opacity: .54;
+}
+.food-guide-kicker {
+  margin: 0 0 9px;
+  color: var(--red);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.food-guide > h2 {
+  max-width: 640px;
+  margin: 0 auto;
+  font: 400 clamp(2rem, 5vw, 2.75rem) "Literata", Georgia, serif;
+  letter-spacing: -.035em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.food-guide-title-knot {
+  margin-top: 5px;
+  margin-bottom: 16px;
+}
+.food-guide-intro {
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+.food-favourites-grid {
+  max-width: 680px;
+  margin: 34px auto 0;
+}
+.food-favourite-card {
+  padding: 0 16px;
+}
+.food-favourite-card h3 {
+  margin: 0 0 14px;
+  color: var(--red);
+  font: 500 1.625rem "Literata", Georgia, serif;
+}
+.food-favourite-card p {
+  margin: 0;
+  color: rgba(64, 40, 38, .78);
+  font-size: .95em;
+  line-height: 1.5;
+}
+.food-recommendation-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(211, 160, 90, .68);
+}
+.food-recommendation-list li {
+  padding: 19px 4px 20px;
+  border-bottom: 1px solid rgba(211, 160, 90, .48);
+}
+.food-recommendation-list h4 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font: 500 1.3rem "Literata", Georgia, serif;
+}
+.food-recommendation-list .food-pick {
+  max-width: 590px;
+  color: var(--ink);
+}
+.food-location-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px 12px;
+  margin-top: 7px !important;
+  color: rgba(64, 40, 38, .62) !important;
+  font-size: .78em !important;
+}
+.food-location-row a {
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-weight: 500;
+  text-underline-offset: .2em;
+}
+.food-person-divider {
+  margin-top: 30px;
+  margin-bottom: 18px;
+}
+.food-guide-ending-knot {
+  margin-top: 30px;
+}
 .thank-you-actions {
   position: relative;
   z-index: 2;
@@ -419,10 +540,16 @@ html[lang="zh"] .seat-note { text-wrap: balance; }
   margin: 18px auto 0;
 }
 html[lang="zh"] .guest-information > h2,
-html[lang="zh"] .guest-information-grid h3 {
+html[lang="zh"] .guest-information-grid h3,
+html[lang="zh"] .food-guide > h2,
+html[lang="zh"] .food-favourite-card h3 {
   font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
   font-weight: 400;
   letter-spacing: .02em;
+}
+html[lang="zh"] .food-recommendation-list h4 {
+  font-family: "Noto Serif SC", serif;
+  font-weight: 500;
 }
 html[lang="zh"] .noto-text,
 html[lang="zh"] .express-interest-button,
@@ -472,6 +599,16 @@ html[lang="en"] select {
   .information-heading-row { gap: 12px; }
   .information-icon { width: 64px; height: 64px; }
   .information-section-knot { width: min(270px, 86%); }
+  .food-guide { margin-top: 50px; padding-inline: 0; }
+  .food-guide-flower { width: 78px; height: 63px; }
+  .food-guide-kicker { font-size: .95rem; letter-spacing: .055em; }
+  .food-guide > h2 { font-size: 2rem; }
+  .food-guide-intro { padding-inline: 5px; }
+  .food-favourites-grid { width: min(500px, 100%); }
+  .food-favourite-card { padding-inline: 4px; }
+  .food-recommendation-list li { padding: 18px 2px 19px; }
+  .food-recommendation-list h4 { font-size: 1.25rem; }
+  .food-location-row { gap: 4px 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
