@@ -342,6 +342,11 @@ h1 span { color: var(--red); font-weight: 400; }
   background: rgba(255, 248, 241, .2);
 }
 
+.carousel.portrait {
+  width: min(420px, 72vw);
+  aspect-ratio: 2 / 3;
+}
+
 .carousel-slide {
   position: absolute;
   inset: 0;
@@ -357,6 +362,19 @@ h1 span { color: var(--red); font-weight: 400; }
 .carousel-slide:nth-child(2),
 .carousel-slide:nth-child(3) { background: rgba(239, 207, 195, .18); }
 .carousel-slide.active { opacity: 1; }
+
+.carousel-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.carousel-slide.portrait .carousel-photo {
+  object-fit: contain;
+  background: rgba(255, 248, 241, .2);
+}
 
 .cloud-image {
   position: absolute;
@@ -825,6 +843,7 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .photo-cloud-right { width: 185px; right: -90px; }
   .photo-moment .carousel { transform: translateY(30px); }
   .photo-moment { min-height: 400px; padding-block: 35px 70px; }
+  .carousel.portrait { width: min(78vw, 340px); }
   .photo-moment { margin-top: -26px; padding-top: 22px; }
   .carousel { width: 100vw; }
   .cloud-before { left: -110px; }

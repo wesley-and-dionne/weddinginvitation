@@ -148,8 +148,15 @@ window.addEventListener("resize", updateMobileLanguageButton);
 updateMobileLanguageButton();
 
 const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+const carousel = document.querySelector(".carousel");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 let currentSlide = 0;
+
+const syncCarouselOrientation = () => {
+  carousel.classList.toggle("portrait", slides[currentSlide]?.classList.contains("portrait"));
+};
+
+syncCarouselOrientation();
 
 if (slides.length > 1 && !reducedMotionQuery.matches) {
   window.setInterval(() => {
@@ -160,5 +167,6 @@ if (slides.length > 1 && !reducedMotionQuery.matches) {
 
     slides[currentSlide].classList.add("active");
     slides[currentSlide].setAttribute("aria-hidden", "false");
+    syncCarouselOrientation();
   }, 5000);
 }
