@@ -316,6 +316,13 @@ h1 span { color: var(--red); font-weight: 400; }
   margin-right: auto;
   margin-left: auto;
 }
+.welcome > p strong {
+  display: block;
+  margin-top: 1.15em;
+  font-weight: 600;
+  font-size: clamp(.72rem, 3vw, 1.125rem);
+  white-space: nowrap;
+}
 
 .section-knot { color: var(--gold); font-size: 1.875rem; margin-bottom: 28px; }
 
@@ -585,7 +592,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .venue-bottom-knot { margin: 8px auto 0; }
 .attire-bottom-knot { margin: 12px auto 0; }
 
-.attire { padding: 8px 0 150px; text-align: center; }
+.attire { padding: 8px 0 70px; text-align: center; }
 .attire .section-heading { margin-bottom: 12px; }
 .attire-heading-knot {
   display: block;
@@ -620,7 +627,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .tea-info {
   max-width: 980px;
   min-height: 430px;
-  padding: 82px 20px 96px;
+  padding: 58px 20px 68px;
   text-align: center;
 }
 .tea-info .section-heading { margin-bottom: 14px; }
@@ -660,7 +667,7 @@ h1 span { color: var(--red); font-weight: 400; }
 .tea-peony { right: -54px; top: 82px; width: 330px; }
 
 .rsvp-section {
-  padding: 140px 20px 190px;
+  padding: 90px 20px 170px;
   text-align: center;
 }
 
@@ -673,8 +680,10 @@ h1 span { color: var(--red); font-weight: 400; }
 .rsvp-button {
   position: relative;
   display: inline-block;
-  min-width: min(360px, 88vw);
-  padding: 15px 48px 16px;
+  width: min(460px, 92vw);
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 15px 24px 16px;
   color: #fff8f1;
   background-color: #b61b21;
   background-image: url("assets/rsvp-border.svg");
@@ -684,8 +693,9 @@ h1 span { color: var(--red); font-weight: 400; }
   border: 0;
   box-shadow: none;
   text-decoration: none;
-  font-size: 2.125rem;
-  letter-spacing: .22em;
+  font-size: clamp(1.125rem, 4vw, 1.75rem);
+  letter-spacing: .12em;
+  white-space: nowrap;
   transition: background-color .2s ease, transform .2s ease;
 }
 .rsvp-button:hover { background-color: var(--red-dark); transform: translateY(-2px); }
@@ -865,7 +875,8 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .venue-name { font-size: 1.4375rem; }
   .venue-room { font-size: 1.1875rem; }
   .attire-layout p { font-size: 1.1875rem; }
-  .tea-info { min-height: 390px; padding: 64px 14px 76px; }
+  .attire { padding-bottom: 62px; }
+  .tea-info { min-height: 390px; padding: 48px 14px 56px; }
   .tea-info > p { font-size: 1.1875rem; }
   html[lang="zh"] .attire-layout p,
   html[lang="zh"] .tea-info > p { font-size: 1.375rem; line-height: 1.6; }
@@ -874,7 +885,7 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   html[lang="zh"] .venue .venue-name { font-size: 1.4375rem; }
   .tea-blossom { left: -72px; top: 150px; width: 155px; opacity: .28; }
   .tea-peony { right: -105px; top: 116px; width: 230px; opacity: .36; }
-  .rsvp-section { padding-top: 115px; padding-bottom: 150px; }
+  .rsvp-section { padding-top: 76px; padding-bottom: 130px; }
 }
 
 @media (max-width: 360px) {

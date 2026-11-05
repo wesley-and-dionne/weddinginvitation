@@ -5,6 +5,7 @@ const translations = {
     welcomeTitle: "Welcome",
     welcomeCopy:
       "We are delighted to invite you to celebrate the beginning of our new life together. Your love and presence mean the world to us as we embark on this beautiful journey.",
+    welcomeClosing: "Please find the celebration details and RSVP information below.",
     itineraryTitle: "Wedding Itinerary",
     teaTime: "4:30–5:30 PM",
     teaTitle: "Tea Ceremony",
@@ -28,6 +29,7 @@ const translations = {
     teaInfoCopy:
       "During the tea ceremony, invited relatives of the bride and groom will be welcomed to accept tea and offer blessings to the couple.",
     rsvpDeadline: "Kindly RSVP by 1 February 2027",
+    rsvpButton: "Click Here to RSVP",
   },
   zh: {
     heroKicker: "我们的婚礼",
@@ -35,6 +37,7 @@ const translations = {
     welcomeTitle: "诚挚邀请",
     welcomeCopy:
       "我们诚挚邀请您共同见证人生新篇章。感谢您的爱与陪伴，与我们一同分享这份喜悦，开启美好的婚姻旅程。",
+    welcomeClosing: "婚礼详情及回复方式请见下方。",
     itineraryTitle: "婚礼流程",
     teaTime: "下午 4:30–5:30",
     teaTitle: "敬茶仪式",
@@ -58,6 +61,7 @@ const translations = {
     teaInfoCopy:
       "敬茶仪式期间，诚邀新郎与新娘的受邀亲属接受新人奉茶，并为新人送上祝福。",
     rsvpDeadline: "敬请于2027年2月1日前回复",
+    rsvpButton: "点击此处回复",
   },
 };
 
