@@ -320,9 +320,9 @@ h1 span { color: var(--red); font-weight: 400; }
 .section-knot { color: var(--gold); font-size: 1.875rem; margin-bottom: 28px; }
 
 .photo-moment {
-  min-height: 590px;
+  min-height: 840px;
   margin-top: -46px;
-  padding: 28px 0 90px;
+  padding: 28px 0 160px;
   display: grid;
   place-items: center;
 }
@@ -337,43 +337,42 @@ h1 span { color: var(--red); font-weight: 400; }
 .carousel {
   position: relative;
   width: min(760px, 88vw);
-  aspect-ratio: 16 / 9;
+  height: min(630px, 117vw);
   overflow: hidden;
-  background: rgba(255, 248, 241, .2);
+  background: transparent;
 }
 
-.carousel.portrait {
-  width: min(420px, 72vw);
-  aspect-ratio: 2 / 3;
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 0, 0);
+  transition: transform .9s cubic-bezier(.22, .61, .36, 1);
+  will-change: transform;
 }
 
 .carousel-slide {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
-  opacity: 0;
-  transition: opacity 1.4s ease;
   color: var(--ink);
-  background: rgba(239, 207, 195, .18);
   letter-spacing: .12em;
 }
 
-.carousel-slide:nth-child(2),
-.carousel-slide:nth-child(3) { background: rgba(239, 207, 195, .18); }
-.carousel-slide.active { opacity: 1; }
-
 .carousel-photo {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: min(760px, 88vw);
+  height: auto;
   object-position: center;
+  background: rgba(255, 248, 241, .2);
 }
 
 .carousel-slide.portrait .carousel-photo {
-  object-fit: contain;
-  background: rgba(255, 248, 241, .2);
+  width: min(420px, 72vw);
 }
 
 .cloud-image {
@@ -842,10 +841,11 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
   .calendar-actions a { font-size: 1.3125rem; }
   .photo-cloud-right { width: 185px; right: -90px; }
   .photo-moment .carousel { transform: translateY(30px); }
-  .photo-moment { min-height: 400px; padding-block: 35px 70px; }
-  .carousel.portrait { width: min(78vw, 340px); }
+  .photo-moment { min-height: 650px; padding-block: 35px 150px; }
   .photo-moment { margin-top: -26px; padding-top: 22px; }
   .carousel { width: 100vw; }
+  .carousel-photo { width: 100vw; }
+  .carousel-slide.portrait .carousel-photo { width: min(78vw, 340px); }
   .cloud-before { left: -110px; }
   .cloud-after { right: -115px; }
   .itinerary-peony { right: -38%; top: 225px; width: 275px; opacity: .46; }
@@ -889,5 +889,5 @@ html[lang="zh"] .timeline p { font-size: 1.3125rem; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .carousel-slide { transition: none; }
+  .carousel-track { transition: none; }
 }

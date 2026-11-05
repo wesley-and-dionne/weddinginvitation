@@ -148,15 +148,15 @@ window.addEventListener("resize", updateMobileLanguageButton);
 updateMobileLanguageButton();
 
 const slides = Array.from(document.querySelectorAll(".carousel-slide"));
-const carousel = document.querySelector(".carousel");
+const carouselTrack = document.querySelector(".carousel-track");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 let currentSlide = 0;
 
-const syncCarouselOrientation = () => {
-  carousel.classList.toggle("portrait", slides[currentSlide]?.classList.contains("portrait"));
+const syncCarouselPosition = () => {
+  carouselTrack.style.transform = `translate3d(-${currentSlide * 100}%, 0, 0)`;
 };
 
-syncCarouselOrientation();
+syncCarouselPosition();
 
 if (slides.length > 1 && !reducedMotionQuery.matches) {
   window.setInterval(() => {
@@ -167,6 +167,23 @@ if (slides.length > 1 && !reducedMotionQuery.matches) {
 
     slides[currentSlide].classList.add("active");
     slides[currentSlide].setAttribute("aria-hidden", "false");
-    syncCarouselOrientation();
+    syncCarouselPosition();
   }, 5000);
 }
+
+carouselTrack.addEventListener("transitionend", (event) => {
+  if (event.propertyName !== "transform") return;
+
+  if (currentSlide === slides.length - 1) {
+    carouselTrack.style.transition = "none";
+    slides[currentSlide].classList.remove("active");
+    slides[currentSlide].setAttribute("aria-hidden", "true");
+    currentSlide = 0;
+    slides[currentSlide].classList.add("active");
+    slides[currentSlide].setAttribute("aria-hidden", "false");
+    syncCarouselPosition();
+    requestAnimationFrame(() => {
+      carouselTrack.style.transition = "";
+    });
+  }
+});
