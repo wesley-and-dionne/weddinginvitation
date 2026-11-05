@@ -182,6 +182,7 @@ carouselTrack.addEventListener("transitionend", (event) => {
     slides[currentSlide].classList.add("active");
     slides[currentSlide].setAttribute("aria-hidden", "false");
     syncCarouselPosition();
+    carouselTrack.offsetWidth;
     requestAnimationFrame(() => {
       carouselTrack.style.transition = "";
     });
