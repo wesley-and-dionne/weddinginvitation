@@ -677,6 +677,11 @@ h1 span { color: var(--red); font-weight: 400; }
   font-weight: 600;
 }
 
+.rsvp-button + .rsvp-deadline {
+  margin-top: 36px;
+  margin-bottom: 0;
+}
+
 .rsvp-button {
   position: relative;
   display: inline-block;
